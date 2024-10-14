@@ -7,7 +7,7 @@
                     <h2 class="text-3xl font-light">Descubre tu estilo</h2>
                     <h1 class="text-5xl font-semibold mt-2 leading-tight">Compra las últimas tendencias ahora</h1>
                     <a href="#" class="bg-white w-fit text-[#264486] px-5 py-2 rounded-full border-2 font-bold mt-10 hover:bg-[#264486] hover:text-white 
-                        hover:border-2">
+                        hover:border-2 transition duration-300 ease-in-out">
                         Descubre Modas
                     </a>
                 </header>
@@ -22,10 +22,10 @@
 
     <!-- <section class="w-full flex justify-around py-10">
         <article
-            class="w-[47%] flex justify-around text-[#4f4f4f] bg-[#BADCF5] rounded-lg p-4 transition duration-300 ease-in-out hover:bg-[#33aaff] hover:text-white  hover:scale-105 ">
+            class="w-[47%] flex justify-around text-[#4f4f4f] bg-[#BADCF5] rounded-lg p-4 transition duration-300 ease-in-out hover:scale-105  hover:bg-[#33aaff] hover:text-white  ">
             <div class="w-[40%] flex justify-center items-center">
                 <div class="flex flex-col">
-                    <span class="text-2xl font-semibold ">Renueva tu estilo:</span>
+                    <span class="text-2xl font-medium ">Renueva tu estilo:</span>
                     <span class="text-3xl font-semibold">Descubre moda masculina diseñada para cada ocasión.</span>
                 </div>
             </div>
@@ -37,7 +37,7 @@
             class="w-[47%] flex justify-around bg-[#F4B9E3] text-[#4f4f4f]  hover:bg-[#ff75d8]  hover:text-white transition duration-300 ease-in-out hover:scale-105 rounded-lg p-4">
             <div class="w-[40%] flex justify-center items-center">
                 <div class="flex flex-col ">
-                    <span class="text-2xl font-semibold ">Exprésate con estilo:</span>
+                    <span class="text-2xl font-medium ">Exprésate con estilo:</span>
                     <span class="text-3xl font-semibold">Prendas que realzan tu estilo y te acompañan en cada momento.</span>
                 </div>
             </div>
@@ -64,7 +64,40 @@
         </article>
     </section>
 
-    <section class="w-full bg-gray-100 h-10 text-center py-24">
-        <span class="text-4xl font-medium">{{"nuestros mejores productos"|uppercase}}</span>
+
+    <!-- sección de productos -->
+    <section class="w-full bg-gray-100 text-center py-24 px-10">
+        <span class="text-4xl font-medium">{{"nuestras mejores colecciones"|uppercase}}</span>
+        <div class="w-full flex justify-between items-center py-4 mt-8">
+            <div class="flex">
+                <button
+                    class="mr-4 text-lg px-4 py-2 border-[#264486] border rounded-full hover:bg-[#264486] hover:text-white transition duration-300 ease-in-out">Todo</button>
+                <button
+                    class="mr-4 text-lg px-4 py-2 border-[#264486] border rounded-full hover:bg-[#264486] hover:text-white transition duration-300 ease-in-out">Popular</button>
+                <button
+                    class="mr-4 text-lg px-4 py-2 border-[#264486] border rounded-full hover:bg-[#264486] hover:text-white transition duration-300 ease-in-out">Nuevo</button>
+            </div>
+            <button
+                class="mr-4 text-lg px-4 py-2 border-[#264486] border rounded-full hover:bg-[#264486] hover:text-white transition duration-300 ease-in-out">Filtrar
+                <mat-icon class="align-middle">sort</mat-icon>
+            </button>
+        </div>
+        <div class="w-full flex flex-wrap justify-around">
+            <div *ngFor="let product of products"
+                class=" cursor-pointer max-w-72 flex flex-col mb-10 bg-[#E8E8E8] shadow-inner rounded-xl hover:shadow-lg p-3 transition duration-300 ease-in-out hover:scale-105 ">
+                <div class="w-full flex justify-end">
+                    <button class="bg-white rounded-full h-10 w-10"> <mat-icon
+                            class="align-middle">shopping_cart</mat-icon> </button>
+                </div>
+                <img class="max-h-60 transition duration-300 ease-in-out hover:scale-105" [src]="product.image" alt="">
+                <div class="w-full bg-white p-3 mx-auto rounded-xl flex flex-col items-start">
+                    <span>{{product.name}}</span>
+                    <span class="text-xl font-medium">${{product.price}}</span>
+                </div>
+            </div>
+
+
+
+        </div>
     </section>
 </div>

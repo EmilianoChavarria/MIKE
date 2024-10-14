@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
+import { PrimengModuleModule } from './primeng/primeng-module.module';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -13,6 +15,8 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
     MainPageComponent
   ],
   imports: [
+    MatIconModule,
+    PrimengModuleModule,
     BrowserModule,
     AppRoutingModule
   ],
