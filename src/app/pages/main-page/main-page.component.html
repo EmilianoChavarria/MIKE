@@ -48,7 +48,7 @@
     </section> -->
 
     <section class="w-full flex items-center justify-center py-10">
-        <article class="w-11/12 flex flex-col">
+        <article class="w-11/12 flex flex-col xl:w-8/12">
             <span class="text-3xl font-medium pb-10">{{"categorías"|uppercase}}</span>
             <div class="w-full flex justify-between">
                 <div *ngFor="let product of categories">
@@ -66,38 +66,40 @@
 
 
     <!-- sección de productos -->
-    <section class="w-full bg-gray-100 text-center py-24 px-10">
+    <section class="w-full flex flex-col items-center justify-center bg-gray-100 text-center py-24 px-10 ">
         <span class="text-4xl font-medium">{{"nuestras mejores colecciones"|uppercase}}</span>
-        <div class="w-full flex justify-between items-center py-4 mt-8">
-            <div class="flex">
-                <button
-                    class="mr-4 text-lg px-4 py-2 border-[#264486] border rounded-full hover:bg-[#264486] hover:text-white transition duration-300 ease-in-out">Todo</button>
-                <button
-                    class="mr-4 text-lg px-4 py-2 border-[#264486] border rounded-full hover:bg-[#264486] hover:text-white transition duration-300 ease-in-out">Popular</button>
-                <button
-                    class="mr-4 text-lg px-4 py-2 border-[#264486] border rounded-full hover:bg-[#264486] hover:text-white transition duration-300 ease-in-out">Nuevo</button>
-            </div>
-            <button
-                class="mr-4 text-lg px-4 py-2 border-[#264486] border rounded-full hover:bg-[#264486] hover:text-white transition duration-300 ease-in-out">Filtrar
-                <mat-icon class="align-middle">sort</mat-icon>
-            </button>
-        </div>
-        <div class="w-full flex flex-wrap justify-around">
-            <div *ngFor="let product of products"
-                class=" cursor-pointer max-w-72 flex flex-col mb-10 bg-[#E8E8E8] shadow-inner rounded-xl hover:shadow-lg p-3 transition duration-300 ease-in-out hover:scale-105 ">
-                <div class="w-full flex justify-end">
-                    <button class="bg-white rounded-full h-10 w-10"> <mat-icon
-                            class="align-middle">shopping_cart</mat-icon> </button>
+        <div class="flex flex-col  xl:w-8/12">
+            <div class="w-full flex justify-between items-center py-4 mt-8 ">
+                <div class="flex">
+                    <button
+                        class="mr-4 text-lg px-4 py-2 border-[#264486] border rounded-full hover:bg-[#264486] hover:text-white transition duration-300 ease-in-out">Todo</button>
+                    <button
+                        class="mr-4 text-lg px-4 py-2 border-[#264486] border rounded-full hover:bg-[#264486] hover:text-white transition duration-300 ease-in-out">Popular</button>
+                    <button
+                        class="mr-4 text-lg px-4 py-2 border-[#264486] border rounded-full hover:bg-[#264486] hover:text-white transition duration-300 ease-in-out">Nuevo</button>
                 </div>
-                <img class="max-h-60 transition duration-300 ease-in-out hover:scale-105" [src]="product.image" alt="">
-                <div class="w-full bg-white p-3 mx-auto rounded-xl flex flex-col items-start">
-                    <span>{{product.name}}</span>
-                    <span class="text-xl font-medium">${{product.price}}</span>
-                </div>
+                <button
+                    class="mr-4 text-lg px-4 py-2 border-[#264486] border rounded-full hover:bg-[#264486] hover:text-white transition duration-300 ease-in-out">Filtrar
+                    <mat-icon class="align-middle">sort</mat-icon>
+                </button>
             </div>
+            <div class="w-full flex flex-wrap justify-around">
+                <div *ngFor="let product of products"
+                    class=" cursor-pointer max-w-72 flex flex-col mb-10 bg-[#E8E8E8] shadow-inner rounded-xl hover:shadow-lg p-3 transition duration-300 ease-in-out hover:scale-105 ">
+                    <div class="w-full flex justify-end">
+                        <button class="bg-white rounded-full h-10 w-10"> <mat-icon
+                                class="align-middle">shopping_cart</mat-icon> </button>
+                    </div>
+                    <img class="max-h-60 transition duration-300 ease-in-out hover:scale-105" [src]="product.image"
+                        alt="">
+                    <div class="w-full bg-white p-3 mx-auto rounded-xl flex flex-col items-start">
+                        <span>{{product.name}}</span>
+                        <span class="text-xl font-medium">${{product.price}}</span>
+                    </div>
+                </div>
 
-
-
+            </div>
         </div>
+
     </section>
 </div>
