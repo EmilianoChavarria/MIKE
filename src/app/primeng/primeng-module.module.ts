@@ -2,7 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 import { ButtonModule } from 'primeng/button';
+import { CarouselModule } from 'primeng/carousel';
 
 
 
@@ -14,6 +17,7 @@ import { ButtonModule } from 'primeng/button';
     BrowserAnimationsModule,
 
   ], exports:[
+    CarouselModule,
     ButtonModule
   ]
 })

@@ -47,7 +47,7 @@
         </article>
     </section> -->
 
-    <section class="w-full flex items-center justify-center py-10">
+    <section class="w-full flex items-center justify-center py-10 ">
         <article class="w-11/12 flex flex-col 2xl:w-8/12">
             <span class="text-3xl font-medium pb-10">{{"categorías"|uppercase}}</span>
             <div class="w-full flex justify-between">
@@ -64,11 +64,24 @@
         </article>
     </section>
 
+    <!-- <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="true"
+        [responsiveOptions]="responsiveOptions">
+        <ng-template let-product pTemplate="item" *ngFor="let category of categories">
+
+            <div class="h-52 w-52 bg-gray-200 rounded-full flex items-center justify-center">
+                <img [src]="category.image" alt="" class="max-h-40 max-w-40">
+            </div>
+            <div class=" mx-auto mt-[-20px] w-fit bg-[#264486] text-white px-10 py-5 text-center rounded-full">
+                {{category.name}}</div>
+        </ng-template>
+    </p-carousel> -->
+
+
 
     <!-- sección de productos -->
     <section class="w-full flex flex-col items-center justify-center bg-gray-100 text-center py-24 px-10 ">
         <span class="text-4xl font-medium">{{"nuestras mejores colecciones"|uppercase}}</span>
-        <div class="w-full flex flex-col xl:w-10/12 2xl:w-8/12">
+        <div class="w-full flex flex-col  2xl:w-8/12">
             <div class="w-full flex justify-between items-center py-4 mt-8 ">
                 <div class="flex">
                     <button
@@ -84,11 +97,11 @@
                 </button>
             </div>
             <div class="w-full flex flex-wrap justify-around">
-                <div *ngFor="let product of products"
-                    class=" cursor-pointer max-w-72 flex flex-col mb-10 bg-[#E8E8E8] shadow-inner rounded-xl hover:shadow-lg p-3 transition duration-300 ease-in-out hover:scale-105 ">
+                <div *ngFor="let product of products" (click)="navigateToProduct(product)"
+                    class=" cursor-pointer max-w-72 flex flex-col mb-10 bg-[#E8E8E8] shadow-inner rounded-xl hover:shadow-lg p-3 transition duration-300 ease-in-out hover:scale-105 hover:bg-[#BADCF5]">
                     <div class="w-full flex justify-end">
                         <button class="bg-white rounded-full h-10 w-10"> <mat-icon
-                                class="align-middle">shopping_cart</mat-icon> </button>
+                                class="align-middle">add_shopping_cart</mat-icon> </button>
                     </div>
                     <img class="max-h-60 transition duration-300 ease-in-out hover:scale-105" [src]="product.image"
                         alt="">
@@ -97,7 +110,6 @@
                         <span class="text-xl font-medium">${{product.price}}</span>
                     </div>
                 </div>
-
             </div>
         </div>
 

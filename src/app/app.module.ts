@@ -7,12 +7,14 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { PrimengModuleModule } from './primeng/primeng-module.module';
 import {MatIconModule} from '@angular/material/icon';
+import { ProductComponent } from './pages/product/product.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    MainPageComponent
+    MainPageComponent,
+    ProductComponent
   ],
   imports: [
     MatIconModule,
