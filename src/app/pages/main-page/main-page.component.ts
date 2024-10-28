@@ -57,7 +57,6 @@ export class MainPageComponent implements OnInit {
     { image: 'assets/img/products/product4.webp', name: "Playera básica6", price: "249" },
     { image: 'assets/img/products/product4.webp', name: "Playera básica7", price: "249" },
     { image: 'assets/img/products/product4.webp', name: "Playera básica8", price: "249" },
-    { image: 'assets/img/products/product4.webp', name: "Playera básica9", price: "249" },
   ];
 
   navigateToProduct(product: any) {

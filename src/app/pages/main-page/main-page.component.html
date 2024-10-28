@@ -50,7 +50,20 @@
     <section class="w-full flex items-center justify-center py-10 ">
         <article class="w-11/12 flex flex-col 2xl:w-8/12">
             <span class="text-3xl font-medium pb-10">{{"categorías"|uppercase}}</span>
-            <div class="w-full flex justify-between">
+            <p-carousel [value]="categories" [numVisible]="5" [numScroll]="5" [circular]="true"
+                [responsiveOptions]="responsiveOptions" autoplayInterval="10000" *ngIf="categories.length > 5">
+                <ng-template let-product pTemplate="item">
+                    <div>
+                        <div class="h-52 w-52 bg-gray-200 rounded-full flex items-center justify-center">
+                            <img [src]="product.image" alt="" class="max-h-40 max-w-40">
+                        </div>
+                        <div
+                            class=" mx-auto mt-[-20px] w-fit bg-[#264486] text-white px-10 py-5 text-center rounded-full">
+                            {{product.name}}</div>
+                    </div>
+                </ng-template>
+            </p-carousel>
+            <div class="w-full flex justify-between" *ngIf="categories.length <= 5">
                 <div *ngFor="let product of categories">
                     <div class="h-52 w-52 bg-gray-200 rounded-full flex items-center justify-center">
                         <img [src]="product.image" alt="" class="max-h-40 max-w-40">
@@ -76,13 +89,8 @@
         </ng-template>
     </p-carousel> -->
 
-
-
-    <!-- sección de productos -->
-    <section class="w-full flex flex-col items-center justify-center bg-gray-100 text-center py-24 px-10 ">
-        <span class="text-4xl font-medium">{{"nuestras mejores colecciones"|uppercase}}</span>
-        <div class="w-full flex flex-col  2xl:w-8/12">
-            <div class="w-full flex justify-between items-center py-4 mt-8 ">
+    <!-- botones de los filtros, los comenté pa pasarlos a otra página -->
+    <!-- <div class="w-full flex justify-between items-center py-4 mt-8 ">
                 <div class="flex">
                     <button
                         class="mr-4 text-lg px-4 py-2 border-[#264486] border rounded-full hover:bg-[#264486] hover:text-white transition duration-300 ease-in-out">Todo</button>
@@ -95,8 +103,19 @@
                     class="mr-4 text-lg px-4 py-2 border-[#264486] border rounded-full hover:bg-[#264486] hover:text-white transition duration-300 ease-in-out">Filtrar
                     <mat-icon class="align-middle">sort</mat-icon>
                 </button>
-            </div>
-            <div class="w-full flex flex-wrap justify-around">
+            </div> -->
+
+    <!-- sección de productos -->
+    <section class="w-full flex flex-col items-center justify-center bg-gray-100 text-center pt-20 pb-10 px-10 ">
+        <span class="text-4xl font-medium mb-5">{{"nuestras mejores colecciones"|uppercase}}</span>
+        <div class="w-full flex justify-end mb-6 2xl:w-8/12">
+            <button class="text-black border border-[#264486] px-6 py-2 rounded-full hover:bg-[#264486] hover:text-white transition">
+                Ver todo
+            </button>
+        </div>
+        <div class="w-full flex flex-col  2xl:w-8/12">
+
+            <!-- <div class="w-full flex flex-wrap justify-around">
                 <div *ngFor="let product of products" (click)="navigateToProduct(product)"
                     class=" cursor-pointer max-w-72 flex flex-col mb-10 bg-[#E8E8E8] shadow-inner rounded-xl hover:shadow-lg p-3 transition duration-300 ease-in-out hover:scale-105 hover:bg-[#BADCF5]">
                     <div class="w-full flex justify-end">
@@ -110,6 +129,75 @@
                         <span class="text-xl font-medium">${{product.price}}</span>
                     </div>
                 </div>
+            </div> -->
+
+            <div class="card">
+                <p-carousel [value]="products" [numVisible]="4" [numScroll]="4" [circular]="true"
+                    [responsiveOptions]="responsiveOptions" autoplayInterval="10000">
+                    <ng-template let-product pTemplate="item">
+                        <div (click)="navigateToProduct(product)"
+                            class="cursor-pointer max-w-72 flex flex-col mb-10 bg-[#E8E8E8] shadow-inner rounded-xl hover:shadow-lg p-3 transition duration-300 ease-in-out hover:scale-105 hover:bg-[#BADCF5]">
+                            <div class="w-full flex justify-end">
+                                <button class="bg-white rounded-full h-10 w-10"> <mat-icon
+                                        class="align-middle">add_shopping_cart</mat-icon> </button>
+                            </div>
+                            <img class="max-h-60 transition duration-300 ease-in-out hover:scale-105"
+                                [src]="product.image" alt="">
+                            <div class="w-full bg-white p-3 mx-auto rounded-xl flex flex-col items-start">
+                                <span>{{product.name}}</span>
+                                <span class="text-xl font-medium">${{product.price}}</span>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-carousel>
+            </div>
+        </div>
+
+    </section>
+    <section class="w-full flex flex-col items-center justify-center bg-gray-100 text-center pt-10 pb-10 px-10 ">
+        <span class="text-4xl font-medium mb-5">{{"Gran variedad de playeras"|uppercase}}</span>
+        <div class="w-full flex justify-end mb-6 2xl:w-8/12">
+            <button class="text-black border border-[#264486] px-6 py-2 rounded-full hover:bg-[#264486] hover:text-white transition">
+                Ver todo
+            </button>
+        </div>
+        <div class="w-full flex flex-col  2xl:w-8/12">
+
+            <!-- <div class="w-full flex flex-wrap justify-around">
+                <div *ngFor="let product of products" (click)="navigateToProduct(product)"
+                    class=" cursor-pointer max-w-72 flex flex-col mb-10 bg-[#E8E8E8] shadow-inner rounded-xl hover:shadow-lg p-3 transition duration-300 ease-in-out hover:scale-105 hover:bg-[#BADCF5]">
+                    <div class="w-full flex justify-end">
+                        <button class="bg-white rounded-full h-10 w-10"> <mat-icon
+                                class="align-middle">add_shopping_cart</mat-icon> </button>
+                    </div>
+                    <img class="max-h-60 transition duration-300 ease-in-out hover:scale-105" [src]="product.image"
+                        alt="">
+                    <div class="w-full bg-white p-3 mx-auto rounded-xl flex flex-col items-start">
+                        <span>{{product.name}}</span>
+                        <span class="text-xl font-medium">${{product.price}}</span>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="card">
+                <p-carousel [value]="products" [numVisible]="4" [numScroll]="4" [circular]="true"
+                    [responsiveOptions]="responsiveOptions" autoplayInterval="10000">
+                    <ng-template let-product pTemplate="item">
+                        <div (click)="navigateToProduct(product)"
+                            class="cursor-pointer max-w-72 flex flex-col mb-10 bg-[#E8E8E8] shadow-inner rounded-xl hover:shadow-lg p-3 transition duration-300 ease-in-out hover:scale-105 hover:bg-[#BADCF5]">
+                            <div class="w-full flex justify-end">
+                                <button class="bg-white rounded-full h-10 w-10"> <mat-icon
+                                        class="align-middle">add_shopping_cart</mat-icon> </button>
+                            </div>
+                            <img class="max-h-60 transition duration-300 ease-in-out hover:scale-105"
+                                [src]="product.image" alt="">
+                            <div class="w-full bg-white p-3 mx-auto rounded-xl flex flex-col items-start">
+                                <span>{{product.name}}</span>
+                                <span class="text-xl font-medium">${{product.price}}</span>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-carousel>
             </div>
         </div>
 

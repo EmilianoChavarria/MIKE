@@ -8,13 +8,15 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { PrimengModuleModule } from './primeng/primeng-module.module';
 import {MatIconModule} from '@angular/material/icon';
 import { ProductComponent } from './pages/product/product.component';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     MainPageComponent,
-    ProductComponent
+    ProductComponent,
+    SidebarComponent
   ],
   imports: [
     MatIconModule,
