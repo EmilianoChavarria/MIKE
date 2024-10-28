@@ -6,6 +6,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
+import { MenuModule } from 'primeng/menu';
+import { BadgeModule } from 'primeng/badge';
+import { RippleModule } from 'primeng/ripple';
+import { AvatarModule } from 'primeng/avatar';
 
 
 
@@ -18,7 +22,11 @@ import { CarouselModule } from 'primeng/carousel';
 
   ], exports:[
     CarouselModule,
-    ButtonModule
+    ButtonModule,
+    MenuModule,
+    BadgeModule,
+    RippleModule,
+    AvatarModule
   ]
 })
 export class PrimengModuleModule { }

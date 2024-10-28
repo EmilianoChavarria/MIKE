@@ -51,7 +51,7 @@
         <article class="w-11/12 flex flex-col 2xl:w-8/12">
             <span class="text-3xl font-medium pb-10">{{"categorías"|uppercase}}</span>
             <p-carousel [value]="categories" [numVisible]="5" [numScroll]="5" [circular]="true"
-                [responsiveOptions]="responsiveOptions" autoplayInterval="10000" *ngIf="categories.length > 5">
+                [responsiveOptions]="responsiveOptions" *ngIf="categories.length > 5">
                 <ng-template let-product pTemplate="item">
                     <div>
                         <div class="h-52 w-52 bg-gray-200 rounded-full flex items-center justify-center">
@@ -133,7 +133,7 @@
 
             <div class="card">
                 <p-carousel [value]="products" [numVisible]="4" [numScroll]="4" [circular]="true"
-                    [responsiveOptions]="responsiveOptions" autoplayInterval="10000">
+                    [responsiveOptions]="responsiveOptions" >
                     <ng-template let-product pTemplate="item">
                         <div (click)="navigateToProduct(product)"
                             class="cursor-pointer max-w-72 flex flex-col mb-10 bg-[#E8E8E8] shadow-inner rounded-xl hover:shadow-lg p-3 transition duration-300 ease-in-out hover:scale-105 hover:bg-[#BADCF5]">
@@ -181,7 +181,7 @@
 
             <div class="card">
                 <p-carousel [value]="products" [numVisible]="4" [numScroll]="4" [circular]="true"
-                    [responsiveOptions]="responsiveOptions" autoplayInterval="10000">
+                    [responsiveOptions]="responsiveOptions">
                     <ng-template let-product pTemplate="item">
                         <div (click)="navigateToProduct(product)"
                             class="cursor-pointer max-w-72 flex flex-col mb-10 bg-[#E8E8E8] shadow-inner rounded-xl hover:shadow-lg p-3 transition duration-300 ease-in-out hover:scale-105 hover:bg-[#BADCF5]">

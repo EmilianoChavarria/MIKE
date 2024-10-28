@@ -1,8 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "primeicons/primeicons.css";
+
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -12,5 +15,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 .p-carousel-items-content{
-    padding-left: 15px !important;
+    padding-top: 10px !important;
+    padding-left: 8px !important;
 }
+
