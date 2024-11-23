@@ -9,6 +9,7 @@ import { PrimengModuleModule } from './primeng/primeng-module.module';
 import {MatIconModule} from '@angular/material/icon';
 import { ProductComponent } from './pages/product/product.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
     MatIconModule,
     PrimengModuleModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

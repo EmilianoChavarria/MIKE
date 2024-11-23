@@ -1,8 +1,8 @@
 <div class="w-full">
     <section class="w-full h-auto bg-[#264486] flex items-center justify-center lg:h-[60vh]">
-        <div class="lg:w-3/4 px-20 flex flex-col sm:flex-col md:flex-row md:w-full lg:h-full lg:flex-row">
+        <div class="py-5 px-20 flex flex-col sm:flex-col md:flex-row md:w-full lg:w-3/4 lg:h-full lg:flex-row">
 
-            <article class="w-2/4 text-white flex flex-col items-center justify-center">
+            <article class="text-white flex flex-col items-center justify-center sm:w-full md:w-2/4">
                 <header class="flex flex-col">
                     <h2 class="text-3xl font-light">Descubre tu estilo</h2>
                     <h1 class="text-5xl font-semibold mt-2 leading-tight">Compra las últimas tendencias ahora</h1>
@@ -13,8 +13,8 @@
                 </header>
             </article>
 
-            <figure class="w-2/4 flex items-center justify-center">
-                <img class="h-full object-contain" [src]="'assets/img/modelo2.png'" alt="modelo vistiendo ropa de moda">
+            <figure class="w-2/4 items-center justify-center hidden md:block">
+                <img class="h-full object-contain" src="assets/img/modelo2.png" alt="modelo vistiendo ropa de moda">
             </figure>
 
         </div>
@@ -51,10 +51,10 @@
         <article class="w-11/12 flex flex-col 2xl:w-8/12">
             <span class="text-3xl font-medium pb-10">{{"categorías"|uppercase}}</span>
             <p-carousel [value]="categories" [numVisible]="5" [numScroll]="5" [circular]="true"
-                [responsiveOptions]="responsiveOptions" *ngIf="categories.length > 5">
+                [responsiveOptions]="firstResponsiveOptions">
                 <ng-template let-product pTemplate="item">
                     <div>
-                        <div class="h-52 w-52 bg-gray-200 rounded-full flex items-center justify-center">
+                        <div class="mx-auto h-52 w-52 bg-gray-200 rounded-full flex items-center justify-center">
                             <img [src]="product.image" alt="" class="max-h-40 max-w-40">
                         </div>
                         <div
@@ -63,7 +63,7 @@
                     </div>
                 </ng-template>
             </p-carousel>
-            <div class="w-full flex justify-between" *ngIf="categories.length <= 5">
+            <!-- <div class="w-full flex justify-between" *ngIf="categories.length <= 5">
                 <div *ngFor="let product of categories">
                     <div class="h-52 w-52 bg-gray-200 rounded-full flex items-center justify-center">
                         <img [src]="product.image" alt="" class="max-h-40 max-w-40">
@@ -71,7 +71,7 @@
                     <div class=" mx-auto mt-[-20px] w-fit bg-[#264486] text-white px-10 py-5 text-center rounded-full">
                         {{product.name}}</div>
                 </div>
-            </div>
+            </div> -->
 
 
         </article>
@@ -113,7 +113,7 @@
                 Ver todo
             </button>
         </div>
-        <div class="w-full flex flex-col  2xl:w-8/12">
+        <div class="w-full flex flex-col  2xl:w-9/12">
 
             <!-- <div class="w-full flex flex-wrap justify-around">
                 <div *ngFor="let product of products" (click)="navigateToProduct(product)"
@@ -161,7 +161,7 @@
                 Ver todo
             </button>
         </div>
-        <div class="w-full flex flex-col  2xl:w-8/12">
+        <div class="w-full flex flex-col  2xl:w-9/12">
 
             <!-- <div class="w-full flex flex-wrap justify-around">
                 <div *ngFor="let product of products" (click)="navigateToProduct(product)"

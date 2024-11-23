@@ -19,3 +19,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     padding-left: 8px !important;
 }
 
+
+.p-carousel-container button {
+    background-color: lightgray;
+    /* margin-left: 10px;
+    margin-right: 10px; */
+}

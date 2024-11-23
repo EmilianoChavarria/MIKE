@@ -1,17 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProductService } from '../../services/product.service';
+
+
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.css'
 })
-export class MainPageComponent implements OnInit {
+export class MainPageComponent implements OnInit, OnDestroy {
   public responsiveOptions: any;
-
-  constructor(private router: Router) { }
+  public firstResponsiveOptions: any;
+  public resizeSubscription: any;
+  public isMobile: boolean = false;
+  public shirtList: any;
+  constructor(private router: Router, private poductService: ProductService) { }
 
   ngOnInit(): void {
+    this.getProducts();
+    this.resizeSubscription = window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) {
+        this.isMobile = false;
+      }
+    });
+
+    this.firstResponsiveOptions = [
+      {
+        breakpoint: '1199px',
+        numVisible: 1,
+        numScroll: 1
+      },
+      {
+        breakpoint: '991px',
+        numVisible: 3,
+        numScroll: 1
+      },
+      {
+        breakpoint: '767px',
+        numVisible: 1,
+        numScroll: 1
+      }
+    ];
+
     this.responsiveOptions = [
       {
         breakpoint: '1199px',
@@ -63,5 +94,18 @@ export class MainPageComponent implements OnInit {
     this.router.navigate(['/product', product.name], { state: { product } });
   }
 
+  getProducts() {
+    this.poductService.getAll().subscribe((response: { object: Product[] }) => {
+      console.log(response);
+      this.shirtList = response.object
+    })
+  }
+
+
+
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.resizeSubscription);
+  }
 
 }
