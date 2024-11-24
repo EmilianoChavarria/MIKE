@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
+import { Product } from '../../interface/Product.interface';
 
 
 
@@ -14,11 +15,14 @@ export class MainPageComponent implements OnInit, OnDestroy {
   public firstResponsiveOptions: any;
   public resizeSubscription: any;
   public isMobile: boolean = false;
-  public shirtList: any;
+  public productList: Product[] = [];
+  public shirtList: Product[] = [];
+  public shortList: Product[] = [];
   constructor(private router: Router, private poductService: ProductService) { }
 
   ngOnInit(): void {
     this.getProducts();
+
     this.resizeSubscription = window.addEventListener('resize', () => {
       if (window.innerWidth >= 768) {
         this.isMobile = false;
@@ -96,12 +100,20 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   getProducts() {
     this.poductService.getAll().subscribe((response: { object: Product[] }) => {
-      console.log(response);
-      this.shirtList = response.object
-    })
+      console.log(response.object);
+      this.productList = response.object;
+      this.shirtList = this.filterProducts(1);
+      this.shortList = this.filterProducts(2);
+    });
   }
-
-
+  
+  filterProducts(id: number): Product[] {
+    const filteredProducts = this.productList.filter((product: Product) => {
+      return product.category.idCategory === id;
+    });
+    console.log('Productos filtrados:', filteredProducts);
+    return filteredProducts;  
+  }
 
 
   ngOnDestroy() {

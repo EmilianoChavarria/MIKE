@@ -1,4 +1,5 @@
 <div class="w-full">
+    <!-- ---------------sección de arriba cuadro azul ------------------>
     <section class="w-full h-auto bg-[#264486] flex items-center justify-center lg:h-[60vh]">
         <div class="py-5 px-20 flex flex-col sm:flex-col md:flex-row md:w-full lg:w-3/4 lg:h-full lg:flex-row">
 
@@ -20,33 +21,8 @@
         </div>
     </section>
 
-    <!-- <section class="w-full flex justify-around py-10">
-        <article
-            class="w-[47%] flex justify-around text-[#4f4f4f] bg-[#BADCF5] rounded-lg p-4 transition duration-300 ease-in-out hover:scale-105  hover:bg-[#33aaff] hover:text-white  ">
-            <div class="w-[40%] flex justify-center items-center">
-                <div class="flex flex-col">
-                    <span class="text-2xl font-medium ">Renueva tu estilo:</span>
-                    <span class="text-3xl font-semibold">Descubre moda masculina diseñada para cada ocasión.</span>
-                </div>
-            </div>
-            <figure class="w-1/2">
-                <img [src]="'assets/img/card-men.png'" alt="">
-            </figure>
-        </article>
-        <article
-            class="w-[47%] flex justify-around bg-[#F4B9E3] text-[#4f4f4f]  hover:bg-[#ff75d8]  hover:text-white transition duration-300 ease-in-out hover:scale-105 rounded-lg p-4">
-            <div class="w-[40%] flex justify-center items-center">
-                <div class="flex flex-col ">
-                    <span class="text-2xl font-medium ">Exprésate con estilo:</span>
-                    <span class="text-3xl font-semibold">Prendas que realzan tu estilo y te acompañan en cada momento.</span>
-                </div>
-            </div>
-            <figure class="w-1/2">
-                <img class="max-h-72" [src]="'assets/img/card-men.png'" alt="">
-            </figure>
-        </article>
-    </section> -->
 
+    <!-- ------------carrusel de categorías--------- -->
     <section class="w-full flex items-center justify-center py-10 ">
         <article class="w-11/12 flex flex-col 2xl:w-8/12">
             <span class="text-3xl font-medium pb-10">{{"categorías"|uppercase}}</span>
@@ -77,17 +53,6 @@
         </article>
     </section>
 
-    <!-- <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="true"
-        [responsiveOptions]="responsiveOptions">
-        <ng-template let-product pTemplate="item" *ngFor="let category of categories">
-
-            <div class="h-52 w-52 bg-gray-200 rounded-full flex items-center justify-center">
-                <img [src]="category.image" alt="" class="max-h-40 max-w-40">
-            </div>
-            <div class=" mx-auto mt-[-20px] w-fit bg-[#264486] text-white px-10 py-5 text-center rounded-full">
-                {{category.name}}</div>
-        </ng-template>
-    </p-carousel> -->
 
     <!-- botones de los filtros, los comenté pa pasarlos a otra página -->
     <!-- <div class="w-full flex justify-between items-center py-4 mt-8 ">
@@ -108,98 +73,32 @@
     <!-- sección de productos -->
     <section class="w-full flex flex-col items-center justify-center bg-gray-100 text-center pt-20 pb-10 px-10 ">
         <span class="text-4xl font-medium mb-5">{{"nuestras mejores colecciones"|uppercase}}</span>
-        <div class="w-full flex justify-end mb-6 2xl:w-8/12">
-            <button class="text-black border border-[#264486] px-6 py-2 rounded-full hover:bg-[#264486] hover:text-white transition">
+        <div class="w-full flex justify-end mb-6 2xl:w-9/12">
+            <button
+                class="text-black border border-[#264486] px-6 py-2 rounded-full hover:bg-[#264486] hover:text-white transition">
                 Ver todo
             </button>
         </div>
         <div class="w-full flex flex-col  2xl:w-9/12">
-
-            <!-- <div class="w-full flex flex-wrap justify-around">
-                <div *ngFor="let product of products" (click)="navigateToProduct(product)"
-                    class=" cursor-pointer max-w-72 flex flex-col mb-10 bg-[#E8E8E8] shadow-inner rounded-xl hover:shadow-lg p-3 transition duration-300 ease-in-out hover:scale-105 hover:bg-[#BADCF5]">
-                    <div class="w-full flex justify-end">
-                        <button class="bg-white rounded-full h-10 w-10"> <mat-icon
-                                class="align-middle">add_shopping_cart</mat-icon> </button>
-                    </div>
-                    <img class="max-h-60 transition duration-300 ease-in-out hover:scale-105" [src]="product.image"
-                        alt="">
-                    <div class="w-full bg-white p-3 mx-auto rounded-xl flex flex-col items-start">
-                        <span>{{product.name}}</span>
-                        <span class="text-xl font-medium">${{product.price}}</span>
-                    </div>
-                </div>
-            </div> -->
-
-            <div class="card">
-                <p-carousel [value]="products" [numVisible]="4" [numScroll]="4" [circular]="true"
-                    [responsiveOptions]="responsiveOptions" >
-                    <ng-template let-product pTemplate="item">
-                        <div (click)="navigateToProduct(product)"
-                            class="cursor-pointer max-w-72 flex flex-col mb-10 bg-[#E8E8E8] shadow-inner rounded-xl hover:shadow-lg p-3 transition duration-300 ease-in-out hover:scale-105 hover:bg-[#BADCF5]">
-                            <div class="w-full flex justify-end">
-                                <button class="bg-white rounded-full h-10 w-10"> <mat-icon
-                                        class="align-middle">add_shopping_cart</mat-icon> </button>
-                            </div>
-                            <img class="max-h-60 transition duration-300 ease-in-out hover:scale-105"
-                                [src]="product.image" alt="">
-                            <div class="w-full bg-white p-3 mx-auto rounded-xl flex flex-col items-start">
-                                <span>{{product.name}}</span>
-                                <span class="text-xl font-medium">${{product.price}}</span>
-                            </div>
-                        </div>
-                    </ng-template>
-                </p-carousel>
-            </div>
+            <app-carrusel [items]="shirtList" (itemClick)="navigateToProduct($event)">
+            </app-carrusel>
         </div>
 
     </section>
     <section class="w-full flex flex-col items-center justify-center bg-gray-100 text-center pt-10 pb-10 px-10 ">
         <span class="text-4xl font-medium mb-5">{{"Gran variedad de playeras"|uppercase}}</span>
-        <div class="w-full flex justify-end mb-6 2xl:w-8/12">
-            <button class="text-black border border-[#264486] px-6 py-2 rounded-full hover:bg-[#264486] hover:text-white transition">
+        <div class="w-full flex justify-end mb-6 2xl:w-9/12">
+            <button
+                class="text-black border border-[#264486] px-6 py-2 rounded-full hover:bg-[#264486] hover:text-white transition">
                 Ver todo
             </button>
         </div>
         <div class="w-full flex flex-col  2xl:w-9/12">
-
-            <!-- <div class="w-full flex flex-wrap justify-around">
-                <div *ngFor="let product of products" (click)="navigateToProduct(product)"
-                    class=" cursor-pointer max-w-72 flex flex-col mb-10 bg-[#E8E8E8] shadow-inner rounded-xl hover:shadow-lg p-3 transition duration-300 ease-in-out hover:scale-105 hover:bg-[#BADCF5]">
-                    <div class="w-full flex justify-end">
-                        <button class="bg-white rounded-full h-10 w-10"> <mat-icon
-                                class="align-middle">add_shopping_cart</mat-icon> </button>
-                    </div>
-                    <img class="max-h-60 transition duration-300 ease-in-out hover:scale-105" [src]="product.image"
-                        alt="">
-                    <div class="w-full bg-white p-3 mx-auto rounded-xl flex flex-col items-start">
-                        <span>{{product.name}}</span>
-                        <span class="text-xl font-medium">${{product.price}}</span>
-                    </div>
-                </div>
-            </div> -->
-
-            <div class="card">
-                <p-carousel [value]="products" [numVisible]="4" [numScroll]="4" [circular]="true"
-                    [responsiveOptions]="responsiveOptions">
-                    <ng-template let-product pTemplate="item">
-                        <div (click)="navigateToProduct(product)"
-                            class="cursor-pointer max-w-72 flex flex-col mb-10 bg-[#E8E8E8] shadow-inner rounded-xl hover:shadow-lg p-3 transition duration-300 ease-in-out hover:scale-105 hover:bg-[#BADCF5]">
-                            <div class="w-full flex justify-end">
-                                <button class="bg-white rounded-full h-10 w-10"> <mat-icon
-                                        class="align-middle">add_shopping_cart</mat-icon> </button>
-                            </div>
-                            <img class="max-h-60 transition duration-300 ease-in-out hover:scale-105"
-                                [src]="product.image" alt="">
-                            <div class="w-full bg-white p-3 mx-auto rounded-xl flex flex-col items-start">
-                                <span>{{product.name}}</span>
-                                <span class="text-xl font-medium">${{product.price}}</span>
-                            </div>
-                        </div>
-                    </ng-template>
-                </p-carousel>
-            </div>
+            <app-carrusel [items]="shortList" (itemClick)="navigateToProduct($event)">
+            </app-carrusel>
         </div>
 
     </section>
+
+    
 </div>

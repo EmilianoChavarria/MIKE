@@ -10,6 +10,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { ProductComponent } from './pages/product/product.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CarruselComponent } from './components/carrusel/carrusel.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
     NavbarComponent,
     MainPageComponent,
     ProductComponent,
-    SidebarComponent
+    SidebarComponent,
+    CarruselComponent
   ],
   imports: [
     MatIconModule,
