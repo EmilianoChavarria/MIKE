@@ -10,7 +10,7 @@ import { MenuModule } from 'primeng/menu';
 import { BadgeModule } from 'primeng/badge';
 import { RippleModule } from 'primeng/ripple';
 import { AvatarModule } from 'primeng/avatar';
-
+import { ToastModule } from 'primeng/toast';
 
 
 @NgModule({
@@ -26,7 +26,8 @@ import { AvatarModule } from 'primeng/avatar';
     MenuModule,
     BadgeModule,
     RippleModule,
-    AvatarModule
+    AvatarModule,
+    ToastModule
   ]
 })
 export class PrimengModuleModule { }

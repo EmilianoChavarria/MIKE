@@ -1,0 +1,8 @@
+.selected {
+    background-color: #264486;
+    color: white;
+  }
+
+  .selected-color {
+    border-color: black !important; /* Mantiene el borde negro al seleccionar */
+  }
