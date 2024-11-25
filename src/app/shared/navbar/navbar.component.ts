@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { Product } from '../../interface/Product.interface';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,8 +10,9 @@ import { MenuItem } from 'primeng/api';
 })
 export class NavbarComponent implements OnInit {
   items: MenuItem[] | undefined;
-
-
+  public cartItemCount: number = 0;
+  public listItems: any = JSON.parse(localStorage.getItem('cartItems') || '[]');
+  constructor(private cartService: CartService) { }
   ngOnInit(): void {
     this.items = [
       {
@@ -32,14 +35,18 @@ export class NavbarComponent implements OnInit {
         separator: true
       }
     ];
+    this.cartService.cartItemsCount$.subscribe((count:any) => {
+      this.cartItemCount = count;
+    });
   }
 
-  toggleDropdown(dropdownId: string): void {
-    const dropdown = document.getElementById(dropdownId);
-    if (dropdown) {
-      dropdown.classList.toggle('hidden');
-    }
+
+  countItems() {
+
+
   }
+
+
 
 
   public isMenuOpen = false;
