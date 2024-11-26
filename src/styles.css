@@ -25,3 +25,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     /* margin-left: 10px;
     margin-right: 10px; */
 }
+
+
+.p-stepper .p-stepper-header .p-stepper-action {
+    background-color: #ffffff00;
+}

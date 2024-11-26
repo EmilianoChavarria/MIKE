@@ -1,30 +1,55 @@
-<div class="w-full flex">
-    <div class="w-3/5  px-10 py-14">
+<div class="w-full flex min-h-[90%]">
+    <div class="w-3/4 flex flex-col items-center justify-center gap-y-6" *ngIf="items.length == 0">
+        <img class="h-52" [src]="'assets/img/Empty-cart.svg'" alt="">
+        <span class="text-3xl font-bold">El carrito está vacío :(</span>
+        <span>Una vez que añadas algo a tu carrito, aparecerá aquí. ¿Listo para empezar?</span>
+        <a class="relative" routerLink="/">
+            <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black"></span>
+            <span
+                class="fold-bold relative inline-block h-full w-full rounded border-2 border-black bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-[#1a1a1a] hover:text-white">
+                Comenzar
+                <mat-icon class="align-middle">trending_flat</mat-icon>
+            </span>
+        </a>
+    </div>
+    <div class="w-3/5 px-10 py-14 " *ngIf="items.length > 0">
         <span class="text-xl font-medium">Todos los productos</span>
-        <div class="p-10">
-            <div *ngFor="let item of items" class="flex justify-between max-h-20 mb-4">
+        <div class="p-10 overflow-y-auto max-h-[calc(100vh-200px)]">
+            <div *ngFor="let item of items; let i = index" class="flex justify-between max-h-20 mb-4">
                 <div class="flex">
-                    <div class="h-20 w-20 bg-[#E8E8E8]  flex items-center justify-center rounded-xl">
-                        <img class="w-[4.5rem] h-[4.5rem]" [src]="'assets/img/products/product4.webp'" alt="">
-                    </div>
-                    <div class="flex flex-col items-start justify-between px-8">
-                        <span class="text-xl">
-                            {{item.name}}
-                        </span>
-                        <div class="flex">
-                            <div class="border border-black px-4 rounded-full ">
-                                xs
-                            </div>
-                            <div class="border border-red-600 px-4 rounded-full ml-3">
-                                <span class="text-red-600">
-                                    {{"rojo" | titlecase}}
-                                </span>
-                            </div>
+                    <div class="flex cursor-pointer min-w-72" (click)="navigateToProduct(item)">
+                        <div class="h-20 w-20 bg-[#E8E8E8]  flex items-center justify-center rounded-xl">
+                            <img class="w-[4.5rem] h-[4.5rem]" [src]="'assets/img/products/product4.webp'" alt="">
                         </div>
-                        <span class="font-semibold text-[#9B139D]">
-                            ${{item.price}}
-                        </span>
+                        <div class="flex flex-col items-start justify-between px-8">
+                            <span class="text-xl">
+                                {{item.name}}
+                            </span>
+                            <div class="flex">
+                                <div class="border border-black px-4 rounded-full ">
+                                    xs
+                                </div>
+                                <div [style.border-color]="item.color.colorHex"
+                                    class="border border-red-600 px-4 rounded-full ml-3">
+                                    <span [style.color]="item.color.colorHex">
+                                        {{item.color.colorName | titlecase}}
+                                    </span>
+                                </div>
+    
+                            </div>
+                            <span class="font-semibold text-[#9B139D]">
+                                ${{item.price}}
+                            </span>
+                        </div>
                     </div>
+                    <div class="flex items-center justify-center gap-x-3">
+                        <button class="text-3xl bg-orange-400 w-10 h-7 flex items-center justify-center" (click)="item.quantity-1">-</button>
+                        <span>{{item.quantity}}</span>
+                        <button class="text-3xl bg-blue-400 w-10 h-7 flex items-center justify-center" (click)="item.quantity+1">+</button>
+                    </div>
+                </div>
+                <div>
+
                 </div>
                 <div class="flex items-center  justify-center">
                     <button>
@@ -34,7 +59,7 @@
                                 d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                         </svg>
                     </button>
-                    <button>
+                    <button (click)="removeFromCart(i)">
                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -48,42 +73,50 @@
         </div>
     </div>
     <!-- <div class="w-2/5 bg-blue-500">a</div> -->
-    <div class="w-2/4  px-10 py-14 bg-gray-100"> 
+    <div class="w-2/4  px-10 py-14 bg-gray-100">
         <p-stepper [linear]="true">
             <p-stepperPanel header="Direcciones">
                 <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
                     <div class="flex flex-column h-12rem">
-                        <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
+                        <div
+                            class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
                             Content I
                         </div>
                     </div>
                     <div class="flex pt-4 justify-content-end">
-                        <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" />
+                        <p-button class="bg-[#3B82F6] rounded-lg px-2 py-2 text-white" label="Siguiente"
+                            icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" />
                     </div>
                 </ng-template>
             </p-stepperPanel>
             <p-stepperPanel header="Pagos">
-                <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
+                <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                    let-index="index">
                     <div class="flex flex-column h-12rem">
-                        <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
+                        <div
+                            class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
                             Content II
                         </div>
                     </div>
-                    <div class="flex pt-4 justify-content-between">
-                        <p-button label="Back" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
-                        <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" />
+                    <div class="flex pt-4 justify-between">
+                        <p-button class="bg-[#3B82F6] rounded-lg px-2 py-2 text-white" label="Anterior"
+                            icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
+                        <p-button class="bg-[#3B82F6] rounded-lg px-2 py-2 text-white" label="Siguiente"
+                            icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" />
                     </div>
                 </ng-template>
             </p-stepperPanel>
             <p-stepperPanel header="Resúmen">
                 <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
                     <div class="flex flex-column h-12rem">
-                        <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
+                        <div
+                            class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
                             Content III
                         </div>
                     </div>
                     <div class="flex pt-4 justify-content-start">
-                        <p-button label="Back" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
+                        <p-button class="bg-[#3B82F6] rounded-lg px-2 py-2 text-white" label="Anterior"
+                            icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
                     </div>
                 </ng-template>
             </p-stepperPanel>

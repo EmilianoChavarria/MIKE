@@ -4,6 +4,12 @@ import { MessageService } from 'primeng/api';
 import { CartService } from '../../services/cart.service';
 import { Product } from '../../interface/Product.interface';
 
+export interface ProductCart {
+  product: Product,
+  color: string,
+  size: string,
+}
+
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -12,7 +18,12 @@ import { Product } from '../../interface/Product.interface';
 })
 export class ProductComponent implements OnInit {
   product: any;
-
+  public colors = [
+    { idColor: 1, colorName: "blue", colorHex: "#1d4ed8" },
+    { idColor: 2, colorName: "pink", colorHex: "#FF00FF" },
+    { idColor: 3, colorName: "green", colorHex: "#00FF00" },
+  ]
+  public showColorError: boolean = false;
   constructor(
     private router: Router,
     private messageService: MessageService,
@@ -23,7 +34,13 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.product);
+    // console.log("🚀 ~ ProductComponent ~ ngOnInit ~ this.product:", this.product)
+    if (this.product?.color) {
+      const colorFound = this.colors.find(color => color.colorName === this.product.color.colorName);
+      if (colorFound) {
+        this.selectedColor = colorFound;
+      }
+    }
   }
 
   selectedSize: string | null = null;
@@ -32,30 +49,62 @@ export class ProductComponent implements OnInit {
     this.selectedSize = size;
   }
 
-  selectedColor: string | null = null;
+  selectedColor: any;
 
-  selectColor(color: string): void {
-    this.selectedColor = color;
+  selectColor(color: any): void {
+    this.selectedColor = {
+      idColor: color.idColor,
+      colorName: color.colorName,
+      colorHex: color.colorHex
+    };
+    this.showColorError = false;
   }
 
   show() {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Producto  agregado al carrito correctamente' });
+    this.messageService.add({ severity: 'success', summary: 'Acción correcta', detail: 'Producto  agregado al carrito correctamente' });
   }
 
-  addToCart(product: Product) {
-    this.cartService.addToCart(product);
-    this.show()
+  addToCart(product: ProductCart) {
+      // genera un ID diferente para cada producto
+    const generateTempId = () => {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let result = '';
+      for (let i = 0; i < 5; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return result;
+    };
+
+    const formatedProduct = {
+      ...product,
+      tempId: generateTempId(),
+      color: this.selectedColor,
+      size: this.selectedSize,
+      quantity: 1
+    };
+
+    if (formatedProduct.color == null) {
+      this.showColorError = true;
+    } else {
+      this.showColorError = false;
+      console.log(formatedProduct);
+      this.cartService.addToCart(formatedProduct);
+      this.show();
+    }
   }
 
-  removeItem(index: number) {
-    this.cartService.removeFromCart(index);
-    console.log("Producto eliminado");
-  }
+  // removeItem(index: number) {
+  //   this.cartService.removeFromCart(index);
+  //   console.log("Producto eliminado");
+  // }
 
-  clearCart() {
-    this.cartService.clearCart();
-    console.log("Carrito vaciado");
-  }
+  // clearCart() {
+  //   this.cartService.clearCart();
+  //   console.log("Carrito vaciado");
+  // }
+
+
+
 }
 
 

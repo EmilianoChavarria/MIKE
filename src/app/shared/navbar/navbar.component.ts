@@ -12,7 +12,9 @@ export class NavbarComponent implements OnInit {
   items: MenuItem[] | undefined;
   public cartItemCount: number = 0;
   public listItems: any = JSON.parse(localStorage.getItem('cartItems') || '[]');
+
   constructor(private cartService: CartService) { }
+
   ngOnInit(): void {
     this.items = [
       {
@@ -26,7 +28,7 @@ export class NavbarComponent implements OnInit {
             icon: 'pi pi-shopping-bag',
           },
           {
-            label: 'Ver pefil',
+            label: 'Ver perfil',
             icon: 'pi pi-user',
           }
         ]
@@ -35,24 +37,16 @@ export class NavbarComponent implements OnInit {
         separator: true
       }
     ];
-    this.cartService.cartItemsCount$.subscribe((count:any) => {
+
+    // Suscripción al BehaviorSubject para actualizar la cantidad total
+    this.cartService.cartItemsCount$.subscribe((count: number) => {
       this.cartItemCount = count;
     });
   }
-
-
-  countItems() {
-
-
-  }
-
-
-
 
   public isMenuOpen = false;
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
-
 }
