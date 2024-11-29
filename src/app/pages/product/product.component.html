@@ -1,5 +1,5 @@
 <section class="h-screen w-full flex">
-    <div class="w-[15%] h-full  flex flex-col items-center justify-center p-2">
+    <!-- <div class="w-[15%] h-full  flex flex-col items-center justify-center p-2">
         <div class="h-4/6 flex flex-col justify-around">
             <div class="shadow-xl rounded-xl">
                 <img [src]="'assets/img/products/product4.webp'" alt="" class="h-32">
@@ -11,8 +11,8 @@
                 <img [src]="'assets/img/products/product4.webp'" alt="" class="h-32">
             </div>
         </div>
-    </div>
-    <div class="w-[40%] h-ful flex items-center justify-center">
+    </div> -->
+    <div class="w-[45%] h-ful flex items-center justify-center">
         <img [src]="'assets/img/products/product4.webp'" alt="">
     </div>
     <div class="w-[45%] h-full flex items-center">
@@ -35,23 +35,24 @@
                 <span class="text-red-500" *ngIf="showColorError">Debes de seleccionar un color</span>
             </div>
 
-            <div class="flex flex-col w-1/3">
+            <div class="flex flex-col">
                 <span class="text-xl">Tallas</span>
-                <div class="flex justify-between">
-                    <div class="border border-[#264486] px-5 py-1 cursor-pointer transition duration-200 ease-in-out hover:bg-[#264486] hover:text-white"
-                        [ngClass]="{'selected': selectedSize === 'S'}" (click)="selectSize('S')">
-                        S
-                    </div>
-                    <div class="border border-[#264486] px-5 py-1 cursor-pointer transition duration-200 ease-in-out hover:bg-[#264486] hover:text-white"
-                        [ngClass]="{'selected': selectedSize === 'M'}" (click)="selectSize('M')">
-                        M
-                    </div>
-                    <div class="border border-[#264486] px-5 py-1 cursor-pointer transition duration-200 ease-in-out hover:bg-[#264486] hover:text-white"
-                        [ngClass]="{'selected': selectedSize === 'L'}" (click)="selectSize('L')">
-                        L
-                    </div>
+                <div class="flex justify-between w-[33%]">
+                  <div class="border border-[#264486] px-5 py-1 cursor-pointer transition duration-200 ease-in-out hover:bg-[#264486] hover:text-white"
+                    [ngClass]="{'selected': selectedSize === 'S'}" (click)="selectSize('S')">
+                    S
+                  </div>
+                  <div class="border border-[#264486] px-5 py-1 cursor-pointer transition duration-200 ease-in-out hover:bg-[#264486] hover:text-white"
+                    [ngClass]="{'selected': selectedSize === 'M'}" (click)="selectSize('M')">
+                    M
+                  </div>
+                  <div class="border border-[#264486] px-5 py-1 cursor-pointer transition duration-200 ease-in-out hover:bg-[#264486] hover:text-white"
+                    [ngClass]="{'selected': selectedSize === 'L'}" (click)="selectSize('L')">
+                    L
+                  </div>
                 </div>
-            </div>
+                <span class="text-red-500" *ngIf="showSizeError">Debes de seleccionar una talla</span>
+              </div>
             <p-toast></p-toast>
 
             <div>

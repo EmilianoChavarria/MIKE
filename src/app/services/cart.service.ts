@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -8,9 +10,18 @@ export class CartService {
   private storageKey = 'cartItems';
   private items: any[] = [];
   private cartItemsCount: BehaviorSubject<number>;
+  private URL: string = environment.baseUrl;
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token') || '';
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      // 'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzI0MjEwOTYsImV4cCI6MTczMzAyNTg5Nn0.DUiDgoYj8oGnollOUVT0n_Kz_Rl2tYlRB1v02G6Rq0M`
+    });
+  }
   cartItemsCount$;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     // Inicializa los items desde el localStorage
     const storedItems = localStorage.getItem(this.storageKey);
     this.items = storedItems ? JSON.parse(storedItems) : [];
@@ -35,7 +46,7 @@ export class CartService {
   addToCart(product: any) {
     const existingProduct = this.items.find(item => {
       return Object.keys(product).every(key => {
-        if (key === 'tempId' || key === 'quantity') return true; 
+        if (key === 'tempId' || key === 'quantity') return true;
         if (typeof product[key] === 'object') {
           return JSON.stringify(product[key]) === JSON.stringify(item[key]);
         }
@@ -50,6 +61,12 @@ export class CartService {
     }
 
     this.saveToLocalStorage();
+  }
+
+  saveAddress(addressForm: any) {
+    return this.http.post(`${this.URL}/address/save`, addressForm, {
+      headers: this.getHeaders(),
+    })
   }
 
   // Obtiene todos los productos del carrito

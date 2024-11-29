@@ -26,8 +26,9 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
         </svg>
-        <span *ngIf="cartItemCount > 0" class="-mt-5 -ml-2 text-sm bg-red-700 h-4 w-4 flex items-center justify-center rounded-full">{{cartItemCount}}</span>
-        
+        <span *ngIf="cartItemCount > 0"
+          class="-mt-5 -ml-2 text-sm bg-red-700 h-4 w-4 flex items-center justify-center rounded-full">{{cartItemCount}}</span>
+
       </a>
       <!-- Sign In / Register      -->
 
@@ -44,7 +45,7 @@
           <span class="text-primary font-bold">{{ item.label }}</span>
         </ng-template>
         <ng-template pTemplate="item" let-item>
-          <a pRipple class="flex align-items-center p-menuitem-link">
+          <a pRipple class="flex align-items-center p-menuitem-link" [routerLink]="item.link">
             <span [class]="item.icon"></span>
             <span class="ml-2">{{ item.label }}</span>
             <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
@@ -52,7 +53,7 @@
               item.shortcut }}</span>
           </a>
         </ng-template>
-        <ng-template pTemplate="end">
+        <ng-template pTemplate="end" *ngIf="isLoggedIn">
           <button pRipple
             class="relative overflow-hidden w-full p-link flex align-items-center p-2 pl-3 text-color hover:surface-200 border-noround">
             <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2"

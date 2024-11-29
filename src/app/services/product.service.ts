@@ -19,13 +19,56 @@ export class ProductService {
   }
   constructor(private http: HttpClient) { }
 
+  // Endpoints de Products
+
   getAll(): Observable<{ object: Product[] }> {
     return this.http.get<{ object: Product[] }>(`${this.URL}/product/`, {
       headers: this.getHeaders(),
     });
   }
 
- 
+  saveProduct(product: any) {
+    return this.http.post(`${this.URL}/product/save`, product, {
+      headers: this.getHeaders(),
+    })
+  }
+
+  // Endpoints de Products
+  getCategories() {
+    return this.http.get(`${this.URL}/category/`, {
+      headers: this.getHeaders(),
+    })
+  }
+
+
+  // Endpoints de Colors
+  getColors() {
+    return this.http.get(`${this.URL}/color/`, {
+      headers: this.getHeaders(),
+    })
+  }
+
+  saveColor(color: any) {
+    return this.http.post(`${this.URL}/color/save`, color, {
+      headers: this.getHeaders(),
+    })
+  }
+  
+
+  // Endpoints de Sizes
+  getSizes() {
+    return this.http.get(`${this.URL}/size/`, {
+      headers: this.getHeaders(),
+    })
+  }
+
+  saveSize(size: any) {
+    return this.http.post(`${this.URL}/size/save`, size, {
+      headers: this.getHeaders(),
+    })
+  }
+
+
 
 
 

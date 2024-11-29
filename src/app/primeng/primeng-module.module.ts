@@ -14,16 +14,31 @@ import { ToastModule } from 'primeng/toast';
 import { StepsModule } from 'primeng/steps';
 import { TabViewModule } from 'primeng/tabview';
 import { StepperModule } from 'primeng/stepper';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { DialogModule } from 'primeng/dialog';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputMaskModule } from 'primeng/inputmask';
+import { FileUploadModule } from 'primeng/fileupload';
+
+
+
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+
+
 
 
 @NgModule({
   declarations: [],
-  imports: [   
+  imports: [
     CommonModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-
-  ], exports:[
+  ], exports: [
     CarouselModule,
     ButtonModule,
     MenuModule,
@@ -33,7 +48,22 @@ import { StepperModule } from 'primeng/stepper';
     ToastModule,
     StepsModule,
     TabViewModule,
-    StepperModule
+    StepperModule,
+    RadioButtonModule,
+    DialogModule,
+    FloatLabelModule,
+    ProgressSpinnerModule,
+    DropdownModule,
+    InputMaskModule,
+    FileUploadModule,
+    
+    MatInputModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatButtonModule
+
   ]
 })
 export class PrimengModuleModule { }

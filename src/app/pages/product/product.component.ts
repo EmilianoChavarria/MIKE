@@ -24,6 +24,7 @@ export class ProductComponent implements OnInit {
     { idColor: 3, colorName: "green", colorHex: "#00FF00" },
   ]
   public showColorError: boolean = false;
+  public showSizeError: boolean = false;
   constructor(
     private router: Router,
     private messageService: MessageService,
@@ -40,6 +41,9 @@ export class ProductComponent implements OnInit {
       if (colorFound) {
         this.selectedColor = colorFound;
       }
+    }
+    if (this.product?.size) {
+      this.selectedSize = this.product.size; 
     }
   }
 
@@ -65,7 +69,7 @@ export class ProductComponent implements OnInit {
   }
 
   addToCart(product: ProductCart) {
-      // genera un ID diferente para cada producto
+    // Genera un ID diferente para cada producto
     const generateTempId = () => {
       const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
       let result = '';
@@ -74,7 +78,7 @@ export class ProductComponent implements OnInit {
       }
       return result;
     };
-
+  
     const formatedProduct = {
       ...product,
       tempId: generateTempId(),
@@ -82,16 +86,27 @@ export class ProductComponent implements OnInit {
       size: this.selectedSize,
       quantity: 1
     };
-
-    if (formatedProduct.color == null) {
+  
+    // Valida si color o talla son nulos o indefinidos
+    if (!formatedProduct.color) {
       this.showColorError = true;
     } else {
       this.showColorError = false;
+    }
+  
+    if (!formatedProduct.size) {
+      this.showSizeError = true;  
+    } else {
+      this.showSizeError = false;
+    }
+  
+    if (formatedProduct.color && formatedProduct.size) {
       console.log(formatedProduct);
       this.cartService.addToCart(formatedProduct);
-      this.show();
+      this.show(); // Asumiendo que esta función muestra una confirmación o algo similar
     }
   }
+  
 
   // removeItem(index: number) {
   //   this.cartService.removeFromCart(index);

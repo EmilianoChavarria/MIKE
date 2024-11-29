@@ -35,52 +35,59 @@
                                         {{item.color.colorName | titlecase}}
                                     </span>
                                 </div>
-    
+
                             </div>
                             <span class="font-semibold text-[#9B139D]">
                                 ${{item.price}}
                             </span>
                         </div>
                     </div>
-                    <div class="flex items-center justify-center gap-x-3">
-                        <button class="text-3xl bg-orange-400 w-10 h-7 flex items-center justify-center" (click)="item.quantity-1">-</button>
-                        <span>{{item.quantity}}</span>
-                        <button class="text-3xl bg-blue-400 w-10 h-7 flex items-center justify-center" (click)="item.quantity+1">+</button>
-                    </div>
+
                 </div>
                 <div>
 
                 </div>
-                <div class="flex items-center  justify-center">
-                    <button>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg>
-                    </button>
-                    <button (click)="removeFromCart(i)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24">
+                <div class="relative flex items-center justify-center">
+                    <!-- Primer botón en la esquina superior derecha -->
+                    <button (click)="removeFromCart(i)" class="absolute top-0 right-0 mt-0 mr-0">
+                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="1.5"
-                                d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
+                                stroke-width="1.5" d="M6 18 17.94 6M18 18 6.06 6" />
                         </svg>
 
                     </button>
+
+                    <!-- Parte centrada -->
+                    <div
+                        class="flex items-center justify-center gap-x-3 max-h-fit my-auto border mb-2 border-black rounded-full">
+                        <button class="text-3xl w-8 h-7 bg-gray-200 flex items-center justify-center rounded-s-full"
+                            (click)="item.quantity-1">-</button>
+                        <span class="w-5 text-center">{{item.quantity}}</span>
+                        <button class="text-2xl w-8 h-7 bg-gray-200 flex items-center justify-center rounded-e-full"
+                            (click)="verifyStock(item.id)">+</button>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
     <!-- <div class="w-2/5 bg-blue-500">a</div> -->
-    <div class="w-2/4  px-10 py-14 bg-gray-100">
+    <div class="w-2/4  px-10 py-8 bg-gray-100">
         <p-stepper [linear]="true">
             <p-stepperPanel header="Direcciones">
                 <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
                     <div class="flex flex-column h-12rem">
                         <div
-                            class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
-                            Content I
+                            class="border-2 border-dashed surface-border border-round surface-ground flex-auto font-medium">
+                            <span class="text-blue-700" (click)="showDialog()">+ Agregar o editar direcciones</span>
+                            <form class="flex flex-col gap-3 mt-2" [formGroup]="form" (ngSubmit)="saveAddress()">
+                                <label *ngFor="let address of address">
+                                    <input type="radio" [value]="address.id" formControlName="address">
+                                    <span class="ml-2">{{address.street + ", " + address.state + ", " +
+                                        address.country+", " +address.zipCode}}</span>
+                                </label>
+                            </form>
                         </div>
                     </div>
                     <div class="flex pt-4 justify-content-end">
@@ -121,6 +128,105 @@
                 </ng-template>
             </p-stepperPanel>
         </p-stepper>
+        <div class="bg-white mt-4">
+            asd
+        </div>
     </div>
     <router-outlet></router-outlet>
 </div>
+
+
+
+<p-dialog header="Agregar una nueva dirección" [modal]="true" [(visible)]="visible" [style]="{ width: '35rem' }"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+    <form [formGroup]="addressForm" class="flex flex-col gap-y-2" (ngSubmit)="saveAddress()">
+        <label for="" class="flex flex-col ">
+            <span class="font-bold">
+                Nombre Completo (Nombre y Apellido)
+            </span>
+            <input type="text" formControlName="name"
+                class="border border-[#414141] h-8 rounded-md px-2 focus:outline-none focus:ring focus:border-blue-700 ">
+        </label>
+        <div class="flex justify-between">
+            <label for="" class="flex flex-col  w-[55%]">
+                <span class="font-bold">
+                    Calle y Número
+                </span>
+                <input type="text" formControlName="street"
+                    class="border border-[#414141] h-8 rounded-md px-2 focus:outline-none focus:ring focus:border-blue-700 ">
+            </label>
+            <label for="" class="flex flex-col">
+                <span class="font-bold">
+                    Número de teléfono
+                </span>
+
+                <input type="text" formControlName="number"
+                    class="border border-[#414141] h-8 rounded-md px-2 focus:outline-none focus:ring focus:border-blue-700 ">
+            </label>
+        </div>
+        <div class="flex">
+            <label for="" class="flex flex-col">
+                <span class="font-bold">
+                    Código Postal
+                </span>
+                <input type="text" placeholder="Por ejemplo, 01000" formControlName="zipCode"
+                    class="border border-[#414141] h-8 rounded-md max-w-52 px-2 focus:outline-none focus:ring focus:border-blue-700 ">
+                    <span class="text-red-700" *ngIf="validZipCode == true">El código postal es inválido</span>
+            </label>
+            <button type="button" (click)="searchCity(addressForm.get('zipCode')?.value)"
+                class="border border-[#264486] ml-4 h-fit my-auto rounded-full px-4 py-1 text-[#264486]  hover:bg-[#264486] hover:text-white">Validar
+                código</button>
+        </div>
+        <div class="scale-75" *ngIf="isLoading">
+            <p-progressSpinner strokeWidth="3" fill="var(--surface-ground)" animationDuration="1s" />
+        </div>
+        <div class="flex justify-between" *ngIf="!isLoading && hasSearched && !validZipCode">
+            <label for="" class="flex flex-col w-[47%]">
+                <span class="font-bold">
+                    Estado/Provincia/Región
+                </span>
+                <input type="text" formControlName="state"
+                    class="border border-[#414141] h-8 rounded-md px-2 focus:outline-none focus:ring focus:border-blue-700 ">
+            </label>
+            <label for="" class="flex flex-col w-[47%]">
+                <span class="font-bold">
+                    Ciudad
+                </span>
+                <input type="text" formControlName="province"
+                    class="border border-[#414141] h-8 rounded-md px-2 focus:outline-none focus:ring focus:border-blue-700 ">
+            </label>
+        </div>
+        <label for="" class="flex flex-col" *ngIf="!isLoading && hasSearched && !validZipCode">
+            <span class="font-bold">
+                Colonia
+            </span>
+            <p-dropdown formControlName="colonie"
+                class="border border-[#414141] rounded-md  w-fit focus:outline-none focus:ring focus:border-blue-700 "
+                [checkmark]="true" [showClear]="true" [options]="colonies" optionLabel="city"
+                placeholder="Selecciona tu colonia" />
+        </label>
+        
+        <div class="flex justify-around mt-2 border-t-[1px] border-gray-300 pt-3">
+            <!-- <button [ngClass]="{'opacity-50 cursor-not-allowed': !addressForm.valid}" [disabled]="!addressForm.valid"
+                class="py-1 bg-[#264486] text-white px-4 rounded-full text-lg">
+                Agregar dirección
+            </button> -->
+            <button class="py-1 bg-[#264486] text-white px-4 rounded-full text-lg">
+                Agregar dirección
+            </button>
+            <button type="reset"
+                class="py-1 border border-orange-500 px-4 rounded-full text-lg hover:bg-orange-500 hover:text-white transition duration-300 ease-in-out">Limpiar
+                formulario</button>
+        </div>
+
+    </form>
+    
+        <!-- <p-inputMask mask="999-99-9999" placeholder="999-99-9999" (onInput)="onInputChange($event)">
+        </p-inputMask>
+
+        <p class="mt-4 text-gray-600">
+            Lo que escribiste es: <span class="font-semibold">{{ inputValue }}</span>
+        </p> -->
+
+
+</p-dialog>

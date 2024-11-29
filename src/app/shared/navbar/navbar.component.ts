@@ -12,31 +12,58 @@ export class NavbarComponent implements OnInit {
   items: MenuItem[] | undefined;
   public cartItemCount: number = 0;
   public listItems: any = JSON.parse(localStorage.getItem('cartItems') || '[]');
-
+  public isLoggedIn: boolean = false;
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
-    this.items = [
-      {
-        separator: true
-      },
-      {
-        label: 'Mi cuenta',
-        items: [
-          {
-            label: 'Mis pedidos',
-            icon: 'pi pi-shopping-bag',
-          },
-          {
-            label: 'Ver perfil',
-            icon: 'pi pi-user',
-          }
-        ]
-      },
-      {
-        separator: true
-      }
-    ];
+    if(localStorage.getItem("token")){
+      this.isLoggedIn = true;
+      this.items = [
+        {
+          separator: true
+        },
+        {
+          label: 'Mi cuenta',
+          items: [
+            {
+              label: 'Mis pedidos',
+              icon: 'pi pi-shopping-bag',
+              link: 'orders',
+            },
+            {
+              label: 'Ver perfil',
+              icon: 'pi pi-user',
+              link: 'profile',
+            }
+          ]
+        },
+        {
+          separator: true
+        }
+      ];
+    }else{
+      this.isLoggedIn = false;
+      this.items = [
+        {
+          separator: true
+        },
+        {
+          label: 'Iniciar Sesión',
+          items: [
+            {
+              label: 'Iniciar Sesión',
+              icon: 'pi pi-user',
+              link: 'login',
+            }
+          ]
+        },
+        {
+          separator: true
+        }
+      ];
+    }
+    console.log(this.isLoggedIn);
+    
 
     // Suscripción al BehaviorSubject para actualizar la cantidad total
     this.cartService.cartItemsCount$.subscribe((count: number) => {

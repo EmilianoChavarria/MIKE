@@ -16,6 +16,11 @@ import { ItemCartComponent } from './pages/item-cart/item-cart.component';
 import { AddressFormComponent } from './components/address-form/address-form.component';
 import { PaymentFormComponent } from './components/payment-form/payment-form.component';
 import { FinalFormComponent } from './components/final-form/final-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AdminModule } from './modules/admin/admin.module';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -29,14 +34,19 @@ import { FinalFormComponent } from './components/final-form/final-form.component
     ItemCartComponent,
     AddressFormComponent,
     PaymentFormComponent,
-    FinalFormComponent
+    FinalFormComponent,
+    LoginComponent
   ],
   imports: [
     MatIconModule,
     PrimengModuleModule,
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    AdminModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

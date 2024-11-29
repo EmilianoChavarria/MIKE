@@ -30,3 +30,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .p-stepper .p-stepper-header .p-stepper-action {
     background-color: #ffffff00;
 }
+
+.p-fileupload .p-button {
+    padding: 0.2rem 0.5rem !important;
+}
+
+.p-fileupload-content{
+    border-radius: 20px;
+    border: 3px dashed  rgb(161, 161, 161);
+}
