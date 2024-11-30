@@ -17,6 +17,12 @@ export class StockService {
   }
   constructor(private http: HttpClient) { }
 
+  getStock(){
+    return this.http.get(`${this.URL}/stockControl/`, {
+      headers: this.getHeaders(),
+    })
+  }
+
   verifyStock(productId: number) {
     return this.http.get(`${this.URL}/stockControl/findOne/${productId}`, {
       headers: this.getHeaders(),

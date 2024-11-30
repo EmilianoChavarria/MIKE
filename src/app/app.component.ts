@@ -11,7 +11,7 @@ export class AppComponent {
   showNavbarFooter = true;
   constructor(private router: Router) {
     this.router.events.subscribe(() => {
-      const hiddenRoutes = ['/login'];
+      const hiddenRoutes = ['/login',  '/register'];
       this.showNavbarFooter = !hiddenRoutes.includes(this.router.url);
     });
   }

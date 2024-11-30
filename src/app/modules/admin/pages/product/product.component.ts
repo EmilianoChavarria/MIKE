@@ -4,6 +4,7 @@ import { ProductService } from '../../../../services/product.service';
 import { StockService } from '../../../../services/stock.service';
 import { UploadEvent } from 'primeng/fileupload';
 import { MessageService } from 'primeng/api';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-product',
@@ -38,11 +39,14 @@ export class ProductComponent {
   public sizeForm: FormGroup = this.fb.group({
     sizeName: ['', [Validators.required]],
   })
+  public selectedImage: string | null = null;
+  private uploadedImage: File | null = null;
 
   constructor(private fb: FormBuilder,
     private productService: ProductService,
     private stockService: StockService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private userService: UserService
 
   ) {
 
@@ -75,6 +79,18 @@ export class ProductComponent {
   visible: boolean = false;
   visible1: boolean = false;
 
+  onImageSelect(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.uploadedImage = file;
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.selectedImage = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   showDialog() {
     this.visible = true;
   }
@@ -85,42 +101,66 @@ export class ProductComponent {
 
 
   saveProduct() {
-    console.log(this.productForm.value);
-    let formatedProduct = {
+    const productData = {
       name: this.productForm.value.name,
       description: this.productForm.value.description,
       price: this.productForm.value.price,
       gender: this.productForm.value.gender,
       category: { idCategory: this.productForm.value.category.idCategory },
-    }
-
-
-    this.productService.saveProduct(formatedProduct).subscribe((response: any) => {
-      let formatedStock = {
-        product: {
-          id: response.object.id
-        },
-        size: {
-          id: this.productForm.value.color.id
-        },
-        color: {
-          id: this.productForm.value.size.id
-        },
-        stock: this.productForm.value.stock
-      }
-      this.stockService.saveStock(formatedStock).subscribe((response) => {
-        console.log(response);
-      }, (error) => {
-        console.log(error);
-      })
-    }, (error) => {
-      console.log(error);
-    })
+    };
+  
+    // Guardar el producto
+    this.productService.saveProduct(productData).subscribe((response: any) => {
+      const productId = response.object.id; // Obtener el ID del producto
+  
+      // Formatear los datos del stock
+      const formatedStock = {
+        product: { id: productId },
+        size: { id: this.productForm.value.size.id },
+        color: { id: this.productForm.value.color.id },
+        stock: this.productForm.value.stock,
+      };
+  
+      // Guardar el stock
+      this.stockService.saveStock(formatedStock).subscribe(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Producto y stock guardados correctamente',
+        });
+  
+        // Subir la imagen si está seleccionada
+        if (this.uploadedImage) {
+          const colorId = this.productForm.value.color.id; // Obtener el ID del color
+  
+          // Llamar al servicio de subida de imagen
+          const formData = new FormData();
+          formData.append('images', this.uploadedImage); // Asegúrate de que `this.uploadedImage` sea un archivo válido
+  
+          this.productService.uploadImages(productId, colorId, [this.uploadedImage]).subscribe({
+            next: () => {
+              console.log('Imagen subida correctamente');
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Imagen subida correctamente',
+              });
+            },
+            error: (err) => {
+              console.error('Error al subir la imagen', err);
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error al subir la imagen',
+                detail: err.message,
+              });
+            },
+          });
+        }
+      });
+    });
   }
 
   saveColor() {
     console.log(this.colorForm.value);
-    this.productService.saveColor(this.colorForm.value).subscribe((response:any) => {
+    this.productService.saveColor(this.colorForm.value).subscribe((response: any) => {
       console.log(response);
       this.colors.push(response.object);
       this.visible = false;
@@ -131,7 +171,7 @@ export class ProductComponent {
 
   saveSize() {
     console.log(this.sizeForm.value);
-    this.productService.saveSize(this.sizeForm.value).subscribe((response:any) => {
+    this.productService.saveSize(this.sizeForm.value).subscribe((response: any) => {
       console.log(response);
       this.sizes.push(response.object);
       this.visible1 = false;

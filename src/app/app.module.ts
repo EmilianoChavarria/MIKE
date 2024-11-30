@@ -21,6 +21,7 @@ import { AdminModule } from './modules/admin/admin.module';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { LoginComponent } from './pages/login/login.component';
     AddressFormComponent,
     PaymentFormComponent,
     FinalFormComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     MatIconModule,

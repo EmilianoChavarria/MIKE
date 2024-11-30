@@ -19,7 +19,7 @@
                         </svg>
                     </button>
                 </div>
-                <img class="w-full max-h-64 rounded-t-lg" [src]="'assets/img/products/product4.webp'" [alt]="card.name"
+                <img class="w-full max-h-64 rounded-t-lg" [src]="card.image" [alt]="card.name"
                     (click)="navigateToProduct(card)">
                 <div class="p-2 text-start bg-white w-full rounded-lg px-7" (click)="navigateToProduct(card)">
                     <h3 class="text-xl font-medium">{{ card.name }}</h3>

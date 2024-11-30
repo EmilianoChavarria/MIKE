@@ -18,13 +18,12 @@ export interface ProductCart {
 })
 export class ProductComponent implements OnInit {
   product: any;
-  public colors = [
-    { idColor: 1, colorName: "blue", colorHex: "#1d4ed8" },
-    { idColor: 2, colorName: "pink", colorHex: "#FF00FF" },
-    { idColor: 3, colorName: "green", colorHex: "#00FF00" },
-  ]
   public showColorError: boolean = false;
   public showSizeError: boolean = false;
+
+  // Ahora el producto recibirá las variantes, ya no necesitas un arreglo de colores hardcodeado.
+  public variants: any[] = [];
+
   constructor(
     private router: Router,
     private messageService: MessageService,
@@ -35,41 +34,47 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log("🚀 ~ ProductComponent ~ ngOnInit ~ this.product:", this.product)
-    if (this.product?.color) {
-      const colorFound = this.colors.find(color => color.colorName === this.product.color.colorName);
-      if (colorFound) {
-        this.selectedColor = colorFound;
-      }
+    console.log(this.product);
+    console.log(this.variants);
+    // Suponemos que las variantes vienen dentro del objeto product.
+    if (this.product?.variants && this.product.variants.length > 0) {
+      this.variants = this.product.variants;
     }
-    if (this.product?.size) {
-      this.selectedSize = this.product.size; 
+    
+    // Preseleccionamos el primer color y tamaño si existen en las variantes.
+    if (this.variants.length > 0) {
+      this.selectedColor = this.variants[0].color;
+      this.selectedSize = this.variants[0].size;
     }
   }
 
   selectedSize: string | null = null;
-
-  selectSize(size: string): void {
-    this.selectedSize = size;
-  }
-
   selectedColor: any;
 
+  // Método para seleccionar color de las variantes
   selectColor(color: any): void {
-    this.selectedColor = {
-      idColor: color.idColor,
-      colorName: color.colorName,
-      colorHex: color.colorHex
-    };
+    this.selectedColor = color;
+    console.log(this.selectedColor);
     this.showColorError = false;
   }
 
+  // Método para seleccionar tamaño de las variantes
+  selectSize(size: string): void {
+    this.selectedSize = size;
+    this.showSizeError = false;
+  }
+
+  getUniqueSizes(): string[] {
+    const sizes = this.variants.map(variant => variant.size.sizeName); 
+    return Array.from(new Set(sizes)); // Devuelve un array con los tamaños 
+  }
+
   show() {
-    this.messageService.add({ severity: 'success', summary: 'Acción correcta', detail: 'Producto  agregado al carrito correctamente' });
+    this.messageService.add({ severity: 'success', summary: 'Acción correcta', detail: 'Producto agregado al carrito correctamente' });
   }
 
   addToCart(product: ProductCart) {
-    // Genera un ID diferente para cada producto
+    // Genera un ID temporal único para cada variante seleccionada.
     const generateTempId = () => {
       const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
       let result = '';
@@ -78,7 +83,7 @@ export class ProductComponent implements OnInit {
       }
       return result;
     };
-  
+
     const formatedProduct = {
       ...product,
       tempId: generateTempId(),
@@ -86,40 +91,24 @@ export class ProductComponent implements OnInit {
       size: this.selectedSize,
       quantity: 1
     };
-  
-    // Valida si color o talla son nulos o indefinidos
+
+    // Validación de color y tamaño
     if (!formatedProduct.color) {
       this.showColorError = true;
     } else {
       this.showColorError = false;
     }
-  
+
     if (!formatedProduct.size) {
       this.showSizeError = true;  
     } else {
       this.showSizeError = false;
     }
-  
+
     if (formatedProduct.color && formatedProduct.size) {
       console.log(formatedProduct);
       this.cartService.addToCart(formatedProduct);
-      this.show(); // Asumiendo que esta función muestra una confirmación o algo similar
+      this.show(); // Muestra un mensaje de éxito al agregar al carrito
     }
   }
-  
-
-  // removeItem(index: number) {
-  //   this.cartService.removeFromCart(index);
-  //   console.log("Producto eliminado");
-  // }
-
-  // clearCart() {
-  //   this.cartService.clearCart();
-  //   console.log("Carrito vaciado");
-  // }
-
-
-
 }
-
-

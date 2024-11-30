@@ -19,7 +19,7 @@
                 <div class="flex">
                     <div class="flex cursor-pointer min-w-72" (click)="navigateToProduct(item)">
                         <div class="h-20 w-20 bg-[#E8E8E8]  flex items-center justify-center rounded-xl">
-                            <img class="w-[4.5rem] h-[4.5rem]" [src]="'assets/img/products/product4.webp'" alt="">
+                            <img class="w-[4.5rem] h-[4.5rem]" [src]="item.image" alt="">
                         </div>
                         <div class="flex flex-col items-start justify-between px-8">
                             <span class="text-xl">
@@ -27,7 +27,7 @@
                             </span>
                             <div class="flex">
                                 <div class="border border-black px-4 rounded-full ">
-                                    xs
+                                    {{item.size}}
                                 </div>
                                 <div [style.border-color]="item.color.colorHex"
                                     class="border border-red-600 px-4 rounded-full ml-3">

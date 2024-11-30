@@ -14,15 +14,22 @@ export class ProductService {
     return new HttpHeaders({
       'Content-Type': 'application/json',
       // 'Authorization': `Bearer ${token}`
-      'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzI0MjEwOTYsImV4cCI6MTczMzAyNTg5Nn0.DUiDgoYj8oGnollOUVT0n_Kz_Rl2tYlRB1v02G6Rq0M`
+      'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzI5NDU0NDQsImV4cCI6MTczMzU1MDI0NH0.xOeETW0oarhFoJEJIwD1G1zuGVd34SUZidU-Q2sd6N4`
+    });
+  }
+
+  private getHeadersWithoutContentType(): HttpHeaders {
+    const token = localStorage.getItem('token') || '';
+    return new HttpHeaders({
+      'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzI5NDU0NDQsImV4cCI6MTczMzU1MDI0NH0.xOeETW0oarhFoJEJIwD1G1zuGVd34SUZidU-Q2sd6N4`,
     });
   }
   constructor(private http: HttpClient) { }
 
   // Endpoints de Products
 
-  getAll(): Observable<{ object: Product[] }> {
-    return this.http.get<{ object: Product[] }>(`${this.URL}/product/`, {
+  getAll() {
+    return this.http.get(`${this.URL}/product/`, {
       headers: this.getHeaders(),
     });
   }
@@ -31,6 +38,23 @@ export class ProductService {
     return this.http.post(`${this.URL}/product/save`, product, {
       headers: this.getHeaders(),
     })
+  }
+
+  uploadImages(productId: number, colorId: number, files: File[]): Observable<any> {
+    const formData = new FormData();
+
+    // Agregar archivos al FormData
+    files.forEach((file) => {
+      formData.append('images', file, file.name);
+    });
+
+    // Construir la URL
+    const url = `${this.URL}/images/associate/${productId}/${colorId}`;
+
+    // Enviar la solicitud HTTP (sin 'Content-Type')
+    return this.http.post(url, formData, {
+      headers: this.getHeadersWithoutContentType(),
+    });
   }
 
   // Endpoints de Products
@@ -53,7 +77,7 @@ export class ProductService {
       headers: this.getHeaders(),
     })
   }
-  
+
 
   // Endpoints de Sizes
   getSizes() {

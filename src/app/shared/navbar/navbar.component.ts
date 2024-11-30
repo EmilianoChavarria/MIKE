@@ -13,10 +13,15 @@ export class NavbarComponent implements OnInit {
   public cartItemCount: number = 0;
   public listItems: any = JSON.parse(localStorage.getItem('cartItems') || '[]');
   public isLoggedIn: boolean = false;
+  public name: string = '';
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
-    if(localStorage.getItem("token")){
+    if (localStorage.getItem("token")) {
+      // Asigna nombre del usuario
+      this.name = localStorage.getItem("userData") || '';
+      this.name = this.name.split(',')[1] + ' ' + this.name.split(',')[2];
+
       this.isLoggedIn = true;
       this.items = [
         {
@@ -31,9 +36,9 @@ export class NavbarComponent implements OnInit {
               link: 'orders',
             },
             {
-              label: 'Ver perfil',
-              icon: 'pi pi-user',
-              link: 'profile',
+              label: 'Cerrar Sesión',
+              icon: 'pi pi-sign-out',
+              command: () => this.logout(), // Aquí llamamos a la función logout
             }
           ]
         },
@@ -41,7 +46,7 @@ export class NavbarComponent implements OnInit {
           separator: true
         }
       ];
-    }else{
+    } else {
       this.isLoggedIn = false;
       this.items = [
         {
@@ -62,8 +67,6 @@ export class NavbarComponent implements OnInit {
         }
       ];
     }
-    console.log(this.isLoggedIn);
-    
 
     // Suscripción al BehaviorSubject para actualizar la cantidad total
     this.cartService.cartItemsCount$.subscribe((count: number) => {
@@ -72,6 +75,15 @@ export class NavbarComponent implements OnInit {
   }
 
   public isMenuOpen = false;
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userData');
+    this.isLoggedIn = false;
+    // llamar al ngOnInit para que se actualice el navbar
+    window.location.reload();
+
+  }
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;

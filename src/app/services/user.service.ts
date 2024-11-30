@@ -20,6 +20,9 @@ export class UserService {
   login(userInfo: any) {
     return this.http.post(`${this.URL}/auth/login`, userInfo);
   }
+  register(userInfo: any) {
+    return this.http.post(`${this.URL}/auth/register`, userInfo);
+  }
 
   findOne(id: number) {
     return this.http.get(`${this.URL}/user/findById/${id}`, {

@@ -13,7 +13,7 @@
         </div>
     </div> -->
     <div class="w-[45%] h-ful flex items-center justify-center">
-        <img [src]="'assets/img/products/product4.webp'" alt="">
+        <img [src]="product.image" alt="">
     </div>
     <div class="w-[45%] h-full flex items-center">
         <div class="w-full h-[70%] px-10 flex flex-col gap-y-5">
@@ -23,36 +23,35 @@
             <div class="w-full">
                 <div class="flex flex-col w-1/4">
                     <span class="text-xl">Colores</span>
-                    <div class="flex justify-between">
-                        <div *ngFor="let color of colors"
-                            class="border p-1 rounded-full transition duration-200 ease-in-out cursor-pointer hover:border-black"
-                            [ngClass]="{'selected-color': selectedColor?.idColor === color.idColor}"
-                            (click)="selectColor(color)">
-                            <div class="h-8 w-8 rounded-full" [style.background-color]="color.colorHex"></div>
+                    <div class="flex">
+                        <div *ngFor="let variant of variants"
+                            class="mr-4 border p-1 rounded-full transition duration-200 ease-in-out cursor-pointer hover:border-black"
+                            [ngClass]="{'selected-color': selectedColor?.id === variant.color.id}"
+                            (click)="selectColor(variant.color)">
+
+                            <!-- Verifica que el colorHex esté correctamente definido -->
+                            <div class="h-8 w-8 rounded-full" [style.background-color]="variant.color?.hex || '#ccc'">
+                            </div>
                         </div>
                     </div>
+
+
                 </div>
                 <span class="text-red-500" *ngIf="showColorError">Debes de seleccionar un color</span>
             </div>
 
             <div class="flex flex-col">
                 <span class="text-xl">Tallas</span>
-                <div class="flex justify-between w-[33%]">
-                  <div class="border border-[#264486] px-5 py-1 cursor-pointer transition duration-200 ease-in-out hover:bg-[#264486] hover:text-white"
-                    [ngClass]="{'selected': selectedSize === 'S'}" (click)="selectSize('S')">
-                    S
-                  </div>
-                  <div class="border border-[#264486] px-5 py-1 cursor-pointer transition duration-200 ease-in-out hover:bg-[#264486] hover:text-white"
-                    [ngClass]="{'selected': selectedSize === 'M'}" (click)="selectSize('M')">
-                    M
-                  </div>
-                  <div class="border border-[#264486] px-5 py-1 cursor-pointer transition duration-200 ease-in-out hover:bg-[#264486] hover:text-white"
-                    [ngClass]="{'selected': selectedSize === 'L'}" (click)="selectSize('L')">
-                    L
-                  </div>
+                <div class="flex w-[33%]">
+                    <div *ngFor="let size of getUniqueSizes()"
+                        class="mr-4 border border-[#264486] px-5 py-1 cursor-pointer transition duration-200 ease-in-out hover:bg-[#264486] hover:text-white"
+                        [ngClass]="{'selected': selectedSize === size}" (click)="selectSize(size)">
+                        {{ size }}
+                    </div>
                 </div>
                 <span class="text-red-500" *ngIf="showSizeError">Debes de seleccionar una talla</span>
-              </div>
+            </div>
+            
             <p-toast></p-toast>
 
             <div>
