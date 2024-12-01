@@ -1,1 +1,29 @@
-<p>main-page works!</p>
+<div class="flex h-full flex-row">
+
+    <app-sidebar></app-sidebar>
+    <div class="flex h-full w-full flex-col">
+        <app-navbar></app-navbar>
+        <div class="bg-gray-100 h-full w-full">
+            <section class="bg-blue-200 w-full max-h-32">
+                <div class="p-4 flex">
+                    <div class="bg-white shadow-xl w-[25%] flex flex-col py-4 px-8 rounded-xl">
+                        <span class=" text-xl text-gray-600">Ventas totales</span>
+                        <span class=" text-3xl font-semibold">$70000</span>
+                    </div>
+                    <div class="bg-white shadow-xl w-[25%] flex flex-col py-4 px-8 rounded-xl ml-6">
+                        <span class=" text-xl text-gray-600">Total de Productos</span>
+                        <span class=" text-3xl font-semibold">{{totalProducts}}</span>
+                    </div>
+                </div>
+            </section>
+            <!-- <ng-container
+            *ngIf="chartData"
+            baseChart
+            [data]="chartData"
+            [labels]="chartLabels"
+            [options]="chartOptions"
+            [type]="chartType">
+          </ng-container> -->
+        </div>
+    </div>
+</div>

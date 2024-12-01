@@ -21,6 +21,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
 import { FileUploadModule } from 'primeng/fileupload';
+import { AccordionModule } from 'primeng/accordion';
 
 
 
@@ -56,6 +57,7 @@ import { MatButtonModule } from '@angular/material/button';
     DropdownModule,
     InputMaskModule,
     FileUploadModule,
+    AccordionModule,
     
     MatInputModule,
     MatFormFieldModule,

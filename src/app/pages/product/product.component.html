@@ -46,7 +46,7 @@
                     <div *ngFor="let size of getUniqueSizes()"
                         class="mr-4 border border-[#264486] px-5 py-1 cursor-pointer transition duration-200 ease-in-out hover:bg-[#264486] hover:text-white"
                         [ngClass]="{'selected': selectedSize === size}" (click)="selectSize(size)">
-                        {{ size }}
+                        {{ size.sizeName }}
                     </div>
                 </div>
                 <span class="text-red-500" *ngIf="showSizeError">Debes de seleccionar una talla</span>

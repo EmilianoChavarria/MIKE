@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Product } from '../../interface/Product.interface';
 import { CartService } from '../../services/cart.service';
@@ -14,6 +14,8 @@ export class NavbarComponent implements OnInit {
   public listItems: any = JSON.parse(localStorage.getItem('cartItems') || '[]');
   public isLoggedIn: boolean = false;
   public name: string = '';
+  @ViewChild('productos', { static: false }) productos: ElementRef | undefined;
+
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
@@ -74,6 +76,10 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  scrollToProductos() {
+    this.productos?.nativeElement.scrollIntoView({ behavior: 'smooth' });
+  }
+
   public isMenuOpen = false;
 
   logout() {
@@ -83,6 +89,18 @@ export class NavbarComponent implements OnInit {
     // llamar al ngOnInit para que se actualice el navbar
     window.location.reload();
 
+  }
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
+
+  moveScroll(direction: number) {
+    const scrollAmount = 500;  // Define cuánto deseas desplazar la página
+    const currentScroll = window.scrollY;  // Obtiene la posición actual del scroll vertical
+  
+    // Realiza el desplazamiento
+    window.scrollTo({
+      top: currentScroll + direction * scrollAmount,  // Desplaza hacia abajo o arriba
+      behavior: 'smooth'  // Desplazamiento suave
+    });
   }
 
   toggleMenu() {

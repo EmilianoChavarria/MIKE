@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,7 @@ export class RegisterComponent {
     private fb: FormBuilder,
     private userService: UserService,
     private router: Router
-  ) { }
+  ) {}
 
   register() {
     console.log(this.registerForm.value);
@@ -37,11 +38,28 @@ export class RegisterComponent {
     this.userService.register(formatedInfo).subscribe(
       (response: any) => {
         console.log('Registro exitoso:', response);
-        // Redirigir a la vista de login
-        this.router.navigate(['/login']);
+
+        // Mostrar mensaje de éxito
+        Swal.fire({
+          title: '¡Registro exitoso!',
+          text: 'Tu cuenta ha sido creada con éxito. Ahora puedes iniciar sesión.',
+          icon: 'success',
+          confirmButtonText: 'Ir al inicio de sesión'
+        }).then(() => {
+          // Redirigir a la vista de login
+          this.router.navigate(['/login']);
+        });
       },
       (error) => {
         console.log('Error en el registro:', error);
+
+        // Mostrar mensaje de error
+        Swal.fire({
+          title: 'Error en el registro',
+          text: 'Ocurrió un problema al registrar tu cuenta. Por favor, intenta nuevamente.',
+          icon: 'error',
+          confirmButtonText: 'Reintentar'
+        });
       }
     );
   }

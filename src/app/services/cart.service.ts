@@ -16,7 +16,7 @@ export class CartService {
     return new HttpHeaders({
       'Content-Type': 'application/json',
       // 'Authorization': `Bearer ${token}`
-      'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzI0MjEwOTYsImV4cCI6MTczMzAyNTg5Nn0.DUiDgoYj8oGnollOUVT0n_Kz_Rl2tYlRB1v02G6Rq0M`
+      'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzI5NDU0NDQsImV4cCI6MTczMzU1MDI0NH0.xOeETW0oarhFoJEJIwD1G1zuGVd34SUZidU-Q2sd6N4`
     });
   }
   cartItemsCount$;
@@ -63,10 +63,18 @@ export class CartService {
     this.saveToLocalStorage();
   }
 
+
+  //endpoint de address
   saveAddress(addressForm: any) {
     return this.http.post(`${this.URL}/address/save`, addressForm, {
       headers: this.getHeaders(),
     })
+  }
+
+  getById(id: number) {
+    return this.http.get(`${this.URL}/address/findByUserId/${id}`, {
+      headers: this.getHeaders(),
+    });
   }
 
   // Obtiene todos los productos del carrito

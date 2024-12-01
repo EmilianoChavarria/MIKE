@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Product } from '../interface/Product.interface';
 
 @Injectable({
@@ -40,6 +40,18 @@ export class ProductService {
     })
   }
 
+  getProducts(idProduct: number, idColor: number, idSize: number): Observable<any[]> {
+    return this.http.get<any[]>(this.URL).pipe(
+      map(products => 
+        products.filter(product =>
+          product.id === idProduct &&
+          product.color.id === idColor &&
+          product.size.id === idSize
+        )
+      )
+    );
+  }
+
   uploadImages(productId: number, colorId: number, files: File[]): Observable<any> {
     const formData = new FormData();
 
@@ -57,13 +69,6 @@ export class ProductService {
     });
   }
 
-  // Endpoints de Products
-  getCategories() {
-    return this.http.get(`${this.URL}/category/`, {
-      headers: this.getHeaders(),
-    })
-  }
-
 
   // Endpoints de Colors
   getColors() {
@@ -74,6 +79,13 @@ export class ProductService {
 
   saveColor(color: any) {
     return this.http.post(`${this.URL}/color/save`, color, {
+      headers: this.getHeaders(),
+    })
+  }
+
+  // Endpoints de categories
+  getCategories() {
+    return this.http.get(`${this.URL}/category/`, {
       headers: this.getHeaders(),
     })
   }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -10,56 +11,82 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   public loginForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required,]],
+    email: ['', [Validators.required]],
     password: ['', [Validators.required]],
-  })
+  });
   public isVisible: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
     private router: Router
-  ) { }
+  ) {}
 
   login() {
     console.log(this.loginForm.value);
     let formatedInfo = {
       email: this.loginForm.value.email,
       password: this.loginForm.value.password,
-    }
-    this.userService.login(formatedInfo).subscribe((response: any) => {
-      let userData: any = [];
-      localStorage.setItem('token', response.token)
-      userData[0] = response.role;
-      console.log(response);
-      this.userService.findOne(response.id).subscribe((response: any) => {
-        // response.object.person.name
-        // userData[1] = response.object.person.name ;
-        userData[1] = userData[0] === 'ADMIN' ? 'Pepe' : response.object.person.name;
-        userData[2] = userData[0] === 'ADMIN' ? 'Hernandez' : response.object.person.lastname;
-        userData[3] = userData[0] === 'ADMIN' ? 'Juarez' : response.object.person.surname;
+    };
+    this.userService.login(formatedInfo).subscribe(
+      (response: any) => {
+        let userData: any = [];
+        localStorage.setItem('token', response.token);
+        userData[0] = response.role;
+        console.log(response);
+        this.userService.findOne(response.id).subscribe(
+          (response: any) => {
+            userData[1] = userData[0] === 'ADMIN' ? 'Pepe' : response.object.person.name;
+            userData[2] = userData[0] === 'ADMIN' ? 'Hernandez' : response.object.person.lastname;
+            userData[3] = userData[0] === 'ADMIN' ? 'Juarez' : response.object.person.surname;
+            userData[4] = userData[0] === 'ADMIN' ? '1' : response.object.id;
 
+            localStorage.setItem("userData", JSON.stringify(userData));
 
-        
-        localStorage.setItem("userData", userData);
-        switch (userData[0]) {
-          case "ADMIN":
-            this.router.navigate(["/admin/homeAdmin"])
-            break;
-          case "USER":
-            this.router.navigate(["/home"])
-            break;
+            // Mostrar mensaje de éxito
+            Swal.fire({
+              title: '¡Inicio de sesión exitoso!',
+              text: `Bienvenido ${userData[1]} ${userData[2]}`,
+              icon: 'success',
+              confirmButtonText: 'Continuar'
+            });
 
-          default:
-            break;
-        }
-      }, (error) => {
+            switch (userData[0]) {
+              case "ADMIN":
+                this.router.navigate(["/admin/homeAdmin"]);
+                break;
+              case "USER":
+                this.router.navigate(["/home"]);
+                break;
+              default:
+                break;
+            }
+          },
+          (error) => {
+            console.log(error);
+
+            // Mostrar mensaje de error al obtener los datos del usuario
+            Swal.fire({
+              title: 'Error',
+              text: 'No se pudieron obtener los datos del usuario.',
+              icon: 'error',
+              confirmButtonText: 'Reintentar'
+            });
+          }
+        );
+      },
+      (error) => {
+        console.log("Entró al error");
         console.log(error);
-      })
-    }, (error) => {
-      console.log("Entró al error");
-      console.log(error);
-    })
-  }
 
+        // Mostrar mensaje de error en el login
+        Swal.fire({
+          title: 'Error de inicio de sesión',
+          text: 'Usuario o contraseña incorrectos. Por favor verifica tus datos.',
+          icon: 'error',
+          confirmButtonText: 'Reintentar'
+        });
+      }
+    );
+  }
 }

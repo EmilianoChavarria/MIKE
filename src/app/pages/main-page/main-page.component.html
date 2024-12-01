@@ -22,7 +22,7 @@
     </section>
 
     <!-- ------------carrusel de categorías--------- -->
-    <section class="w-full flex items-center justify-center py-10 ">
+    <section class="w-full flex items-center justify-center py-10 " #productos id="productos">
         <article class="w-11/12 flex flex-col 2xl:w-8/12">
             <span class="text-3xl font-medium pb-10">{{"categorías"|uppercase}}</span>
             <p-carousel [value]="categories" [numVisible]="5" [numScroll]="5" [circular]="true"
@@ -69,7 +69,7 @@
                 </button>
             </div> -->
 
-    <!-- sección de productos -->
+    <!-- sección de productos (playeras)-->
     <section class="w-full flex flex-col items-center justify-center bg-gray-100 text-center pt-20 pb-10 px-10 ">
         <span class="text-4xl font-medium mb-5">{{"nuestras mejores colecciones"|uppercase}}</span>
         <div class="w-full flex justify-end mb-6 2xl:w-9/12">
@@ -79,13 +79,62 @@
             </button>
         </div>
         <div class="w-full flex flex-col  2xl:w-9/12">
-            <app-carrusel [items]="shirtList" >
+            <app-carrusel [items]="shirtList">
             </app-carrusel>
         </div>
 
     </section>
+
+    <!-- sección de productos (Pantalones)-->
     <section class="w-full flex flex-col items-center justify-center bg-gray-100 text-center pt-10 pb-10 px-10 ">
-        <span class="text-4xl font-medium mb-5">{{"Gran variedad de playeras"|uppercase}}</span>
+        <span class="text-4xl font-medium mb-5">{{"Ultimo en moda en pantalones"|uppercase}}</span>
+        <div class="w-full flex justify-end mb-6 2xl:w-9/12">
+            <button
+                class="text-black border border-[#264486] px-6 py-2 rounded-full hover:bg-[#264486] hover:text-white transition">
+                Ver todo
+            </button>
+        </div>
+        <div class="w-full flex flex-col  2xl:w-9/12">
+            <app-carrusel [items]="pantsList">
+            </app-carrusel>
+        </div>
+
+    </section>
+
+    <!-- sección de productos (sudaderas)-->
+    <section class="w-full flex flex-col items-center justify-center bg-gray-100 text-center pt-10 pb-10 px-10 ">
+        <span class="text-4xl font-medium mb-5">{{"Para esta época de frío las mejores sudaderas"|uppercase}}</span>
+        <div class="w-full flex justify-end mb-6 2xl:w-9/12">
+            <button
+                class="text-black border border-[#264486] px-6 py-2 rounded-full hover:bg-[#264486] hover:text-white transition">
+                Ver todo
+            </button>
+        </div>
+        <div class="w-full flex flex-col  2xl:w-9/12">
+            <app-carrusel [items]="hoodieList">
+            </app-carrusel>
+        </div>
+
+    </section>
+    <!-- sección de productos (tenis)-->
+    <section class="w-full flex flex-col items-center justify-center bg-gray-100 text-center pt-10 pb-10 px-10 ">
+        <span class="text-4xl font-medium mb-5">{{"Lo mejor en Tenis"|uppercase}}</span>
+        <div class="w-full flex justify-end mb-6 2xl:w-9/12">
+            <button
+                class="text-black border border-[#264486] px-6 py-2 rounded-full hover:bg-[#264486] hover:text-white transition">
+                Ver todo
+            </button>
+        </div>
+        <div class="w-full flex flex-col  2xl:w-9/12">
+            <app-carrusel [items]="sneakerList">
+            </app-carrusel>
+        </div>
+
+    </section>
+
+    <!-- sección de productos (shorts)-->
+    <section class="w-full flex flex-col items-center justify-center bg-gray-100 text-center pt-10 pb-10 px-10 ">
+        <span class="text-4xl font-medium mb-5">{{"Shorts para el verano"|uppercase}}</span>
         <div class="w-full flex justify-end mb-6 2xl:w-9/12">
             <button
                 class="text-black border border-[#264486] px-6 py-2 rounded-full hover:bg-[#264486] hover:text-white transition">
@@ -96,8 +145,23 @@
             <app-carrusel [items]="shortList">
             </app-carrusel>
         </div>
-
     </section>
 
-    
+    <!-- sección de productos (vestidos)-->
+    <section class="w-full flex flex-col items-center justify-center bg-gray-100 text-center pt-10 pb-10 px-10 ">
+        <span class="text-4xl font-medium mb-5">{{"Vestidos para cualquier ocasión"|uppercase}}</span>
+        <div class="w-full flex justify-end mb-6 2xl:w-9/12">
+            <button
+                class="text-black border border-[#264486] px-6 py-2 rounded-full hover:bg-[#264486] hover:text-white transition">
+                Ver todo
+            </button>
+        </div>
+        <div class="w-full flex flex-col  2xl:w-9/12">
+            <app-carrusel [items]="dressList">
+            </app-carrusel>
+        </div>
+    </section>
+
+
+
 </div>

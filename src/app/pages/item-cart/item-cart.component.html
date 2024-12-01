@@ -1,5 +1,5 @@
 <div class="w-full flex min-h-[90%]">
-    <div class="w-3/4 flex flex-col items-center justify-center gap-y-6" *ngIf="items.length == 0">
+    <div class="w-full flex flex-col items-center justify-center gap-y-6" *ngIf="items.length == 0">
         <img class="h-52" [src]="'assets/img/Empty-cart.svg'" alt="">
         <span class="text-3xl font-bold">El carrito está vacío :(</span>
         <span>Una vez que añadas algo a tu carrito, aparecerá aquí. ¿Listo para empezar?</span>
@@ -27,11 +27,11 @@
                             </span>
                             <div class="flex">
                                 <div class="border border-black px-4 rounded-full ">
-                                    {{item.size}}
+                                    {{item.size.sizeName}}
                                 </div>
-                                <div [style.border-color]="item.color.colorHex"
+                                <div [style.border-color]="item.color.hex"
                                     class="border border-red-600 px-4 rounded-full ml-3">
-                                    <span [style.color]="item.color.colorHex">
+                                    <span [style.color]="item.color.hex">
                                         {{item.color.colorName | titlecase}}
                                     </span>
                                 </div>
@@ -62,10 +62,10 @@
                     <div
                         class="flex items-center justify-center gap-x-3 max-h-fit my-auto border mb-2 border-black rounded-full">
                         <button class="text-3xl w-8 h-7 bg-gray-200 flex items-center justify-center rounded-s-full"
-                            (click)="item.quantity-1">-</button>
+                            (click)="filterProductsDecrement(item.id, item.color.id, item.size.id, item)">-</button>
                         <span class="w-5 text-center">{{item.quantity}}</span>
                         <button class="text-2xl w-8 h-7 bg-gray-200 flex items-center justify-center rounded-e-full"
-                            (click)="verifyStock(item.id)">+</button>
+                            (click)="filterProducts(item.id, item.color.id, item.size.id, item)">+</button>
                     </div>
                 </div>
 
@@ -73,66 +73,75 @@
         </div>
     </div>
     <!-- <div class="w-2/5 bg-blue-500">a</div> -->
-    <div class="w-2/4  px-10 py-8 bg-gray-100">
-        <p-stepper [linear]="true">
-            <p-stepperPanel header="Direcciones">
-                <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
-                    <div class="flex flex-column h-12rem">
-                        <div
-                            class="border-2 border-dashed surface-border border-round surface-ground flex-auto font-medium">
-                            <span class="text-blue-700" (click)="showDialog()">+ Agregar o editar direcciones</span>
-                            <form class="flex flex-col gap-3 mt-2" [formGroup]="form" (ngSubmit)="saveAddress()">
-                                <label *ngFor="let address of address">
-                                    <input type="radio" [value]="address.id" formControlName="address">
-                                    <span class="ml-2">{{address.street + ", " + address.state + ", " +
-                                        address.country+", " +address.zipCode}}</span>
-                                </label>
-                            </form>
-                        </div>
+    <div class="w-2/4  px-10 pt-12 bg-gray-100" *ngIf="items.length > 0">
+        <span class="text-2xl font-medium mt-4">Resumen de compra</span>
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab header="Direcciones">
+                <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto font-medium">
+                    <span class="text-blue-700" (click)="showDialog()">+ Agregar o editar direcciones</span>
+                    <form class="flex flex-col gap-3 mt-2" [formGroup]="form" (ngSubmit)="saveAddress()">
+                        <label *ngFor="let address of address" class="flex">
+                            <input type="radio" [value]="address.id" formControlName="address">
+                            <div class="flex flex-col ml-2">
+                                <span class="font-semibold">{{address.fullName}}</span>
+                                <span>{{address.street + ", " + address.neighborhood + ", " + address.province +
+                                    ", " + address.state + ", " +
+                                    address.country+", " +address.zipCode}}</span>
+                            </div>
+                        </label>
+                    </form>
+                </div>
+            </p-accordionTab>
+            <p-accordionTab header="Pago">
+                <div class="flex flex-col justify-around items-center w-[80%] mx-auto">
+                    <label for="" class="flex flex-col w-full">
+                        <span class="font-bold">
+                            Número de cuenta
+                        </span>
+                        <input type="text"
+                            class="border border-[#414141] h-8 rounded-md px-2 focus:outline-none focus:ring focus:border-blue-700"
+                            maxlength="16" />
+                    </label>
+                    <label for="" class="flex flex-col w-full">
+                        <span class="font-bold">
+                            Nombre del titular
+                        </span>
+                        <input type="text"
+                            class="border border-[#414141] h-8 rounded-md px-2 focus:outline-none focus:ring focus:border-blue-700"
+                            maxlength="16" />
+                    </label>
+                    <div class="flex w-full justify-between" >
+                        <label for="" class="flex flex-col w-[40%]">
+                            <span class="font-bold">
+                                Fecha de expiración
+                            </span>
+                            <input type="text"
+                                class="border border-[#414141] h-8 rounded-md px-2 focus:outline-none focus:ring focus:border-blue-700"
+                                maxlength="5" />
+                        </label>
+                        <label for="" class="flex flex-col w-[40%]">
+                            <span class="font-bold">
+                                CVV
+                            </span>
+                            <input type="text"
+                                class="border border-[#414141] h-8 rounded-md px-2 focus:outline-none focus:ring focus:border-blue-700"
+                                maxlength="3" />
+                        </label>
                     </div>
-                    <div class="flex pt-4 justify-content-end">
-                        <p-button class="bg-[#3B82F6] rounded-lg px-2 py-2 text-white" label="Siguiente"
-                            icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" />
-                    </div>
-                </ng-template>
-            </p-stepperPanel>
-            <p-stepperPanel header="Pagos">
-                <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
-                    let-index="index">
-                    <div class="flex flex-column h-12rem">
-                        <div
-                            class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
-                            Content II
-                        </div>
-                    </div>
-                    <div class="flex pt-4 justify-between">
-                        <p-button class="bg-[#3B82F6] rounded-lg px-2 py-2 text-white" label="Anterior"
-                            icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
-                        <p-button class="bg-[#3B82F6] rounded-lg px-2 py-2 text-white" label="Siguiente"
-                            icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" />
-                    </div>
-                </ng-template>
-            </p-stepperPanel>
-            <p-stepperPanel header="Resúmen">
-                <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
-                    <div class="flex flex-column h-12rem">
-                        <div
-                            class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
-                            Content III
-                        </div>
-                    </div>
-                    <div class="flex pt-4 justify-content-start">
-                        <p-button class="bg-[#3B82F6] rounded-lg px-2 py-2 text-white" label="Anterior"
-                            icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
-                    </div>
-                </ng-template>
-            </p-stepperPanel>
-        </p-stepper>
-        <div class="bg-white mt-4">
-            asd
+                    <button class="mt-4 bg-[#264486] text-white  rounded-full text-lg px-4 py-2" (click)="pay()">Proceder al Pago</button>
+                </div>
+
+            </p-accordionTab>
+        </p-accordion>
+        <div class="mt-4 border-t border-t-black" *ngIf="total()>0">
+            <div class="bg-full flex flex-col justify-end items-end">
+                <span class="text-3xl mt-6">
+                    Total: ${{total()}}
+                </span>
+
+            </div>
         </div>
     </div>
-    <router-outlet></router-outlet>
 </div>
 
 
@@ -171,7 +180,7 @@
                 </span>
                 <input type="text" placeholder="Por ejemplo, 01000" formControlName="zipCode"
                     class="border border-[#414141] h-8 rounded-md max-w-52 px-2 focus:outline-none focus:ring focus:border-blue-700 ">
-                    <span class="text-red-700" *ngIf="validZipCode == true">El código postal es inválido</span>
+                <span class="text-red-700" *ngIf="validZipCode == true">El código postal es inválido</span>
             </label>
             <button type="button" (click)="searchCity(addressForm.get('zipCode')?.value)"
                 class="border border-[#264486] ml-4 h-fit my-auto rounded-full px-4 py-1 text-[#264486]  hover:bg-[#264486] hover:text-white">Validar
@@ -205,7 +214,7 @@
                 [checkmark]="true" [showClear]="true" [options]="colonies" optionLabel="city"
                 placeholder="Selecciona tu colonia" />
         </label>
-        
+
         <div class="flex justify-around mt-2 border-t-[1px] border-gray-300 pt-3">
             <!-- <button [ngClass]="{'opacity-50 cursor-not-allowed': !addressForm.valid}" [disabled]="!addressForm.valid"
                 class="py-1 bg-[#264486] text-white px-4 rounded-full text-lg">
@@ -220,13 +229,12 @@
         </div>
 
     </form>
-    
-        <!-- <p-inputMask mask="999-99-9999" placeholder="999-99-9999" (onInput)="onInputChange($event)">
-        </p-inputMask>
 
-        <p class="mt-4 text-gray-600">
-            Lo que escribiste es: <span class="font-semibold">{{ inputValue }}</span>
-        </p> -->
+
+
+    <p class="mt-4 text-gray-600">
+        Lo que escribiste es: <span class="font-semibold">{{ inputValue }}</span>
+    </p>
 
 
 </p-dialog>

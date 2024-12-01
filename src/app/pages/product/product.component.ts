@@ -64,9 +64,11 @@ export class ProductComponent implements OnInit {
     this.showSizeError = false;
   }
 
-  getUniqueSizes(): string[] {
-    const sizes = this.variants.map(variant => variant.size.sizeName); 
-    return Array.from(new Set(sizes)); // Devuelve un array con los tamaños 
+  getUniqueSizes(): any[] {
+    const sizes = this.variants.map(variant => variant.size); // Mapea todo el objeto de la talla
+    return Array.from(new Set(sizes.map(size => size.id))).map(id =>
+      sizes.find(size => size.id === id)
+    ); // Devuelve un array con objetos únicos basados en su `id`
   }
 
   show() {
@@ -74,7 +76,6 @@ export class ProductComponent implements OnInit {
   }
 
   addToCart(product: ProductCart) {
-    // Genera un ID temporal único para cada variante seleccionada.
     const generateTempId = () => {
       const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
       let result = '';
@@ -83,32 +84,33 @@ export class ProductComponent implements OnInit {
       }
       return result;
     };
-
+  
     const formatedProduct = {
       ...product,
       tempId: generateTempId(),
-      color: this.selectedColor,
-      size: this.selectedSize,
+      color: this.selectedColor, // Ya es el objeto completo
+      size: this.selectedSize, // Ahora es el objeto completo
       quantity: 1
     };
-
+  
     // Validación de color y tamaño
     if (!formatedProduct.color) {
       this.showColorError = true;
     } else {
       this.showColorError = false;
     }
-
+    
     if (!formatedProduct.size) {
       this.showSizeError = true;  
     } else {
       this.showSizeError = false;
     }
-
+    
     if (formatedProduct.color && formatedProduct.size) {
-      console.log(formatedProduct);
+      console.log("🚀 ~ ProductComponent ~ addToCart ~ formatedProduct:", formatedProduct);
       this.cartService.addToCart(formatedProduct);
       this.show(); // Muestra un mensaje de éxito al agregar al carrito
     }
   }
+  
 }

@@ -15,11 +15,21 @@ export class StockService {
       'Authorization': `Bearer ${token}`
     });
   }
+
+  private getHeaders1(): HttpHeaders {
+    const token = localStorage.getItem('token') || '';
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      // 'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzI5NDU0NDQsImV4cCI6MTczMzU1MDI0NH0.xOeETW0oarhFoJEJIwD1G1zuGVd34SUZidU-Q2sd6N4`
+    });
+  }
+
   constructor(private http: HttpClient) { }
 
   getStock(){
     return this.http.get(`${this.URL}/stockControl/`, {
-      headers: this.getHeaders(),
+      headers: this.getHeaders1(),
     })
   }
 

@@ -39,3 +39,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border-radius: 20px;
     border: 3px dashed  rgb(161, 161, 161);
 }
+
+.creditNumber {
+    margin-left: 10px;
+    width: 90% !important;
+}
+
+.cvv, .date{
+    border: 1px solid black;
+    width: 100% !important;
+}

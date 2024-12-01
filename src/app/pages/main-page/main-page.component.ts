@@ -19,6 +19,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
   public productList: Product[] = [];
   public shirtList: Product[] = [];
   public shortList: Product[] = [];
+  public hoodieList: Product[] = [];
+  public pantsList: Product[] = [];
+  public sneakerList: Product[] = [];
+  public dressList: Product[] = [];
+  public: Product[] = [];
   constructor(private router: Router,
     private poductService: ProductService,
     private stockService: StockService
@@ -26,25 +31,32 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getProducts();
+    this.getCategories();
   }
 
   // TODO: poner intefaces correctas
-  public categories: any = [
-    { image: 'assets/img/products/product1.png', name: "Zapatos" },
-    { image: 'assets/img/products/product2.png', name: "Shorts" },
-    { image: 'assets/img/products/product3.png', name: "Bolsas" },
-    { image: 'assets/img/products/product4.webp', name: "Playeras" },
-    { image: 'assets/img/products/product5.png', name: "Pantalones" },
-    // {image: 'assets/img/products/product6.webp', name: "Tenis"},
-  ]
+  public categories: any;
 
+  getCategories() {
+    this.poductService.getCategories().subscribe((response: any) => {
+      this.categories = response.object.map((item: any) => ({
+        idCategory: item.idCategory,
+        name: item.name,
+        image: `data:image/png;base64,${item.image.image}`
+      }));
+      console.log('Categorias:', this.categories);
+    }, (error: any) => {
+      console.error('Error al obtener las categorías:', error);
+    });
+  }
 
 
   getProducts() {
     this.stockService.getStock().subscribe((response: any) => {
+      console.log(response);
       // Usamos un mapa para agrupar los productos por su id
       const productMap = new Map<number, any>();
-  
+
       response.object.forEach((item: any) => {
         // Extraemos el producto
         const product = {
@@ -60,15 +72,15 @@ export class MainPageComponent implements OnInit, OnDestroy {
           size: item.size,
           stock: item.stock,
         };
-  
+
         // Si el producto ya existe en el mapa, lo actualizamos con el nuevo color/size
         if (productMap.has(product.id)) {
           const existingProduct = productMap.get(product.id);
-  
+
           // Verificamos si ya existe la combinación de color y tamaño
-          const existingVariant = existingProduct.variants.find((variant: any) => 
+          const existingVariant = existingProduct.variants.find((variant: any) =>
             variant.color.id === product.color.id && variant.size.id === product.size.id);
-  
+
           if (!existingVariant) {
             // Si no existe la combinación, agregamos la nueva variante
             existingProduct.variants.push({
@@ -101,17 +113,21 @@ export class MainPageComponent implements OnInit, OnDestroy {
           });
         }
       });
-  
+
       // Convertimos el mapa de nuevo en un arreglo para asignarlo a productList
       this.productList = Array.from(productMap.values());
       console.log("🚀 ~ MainPageComponent ~ this.stockService.getStock ~ this.productList:", this.productList);
-  
+
       // Filtrar productos
       this.shirtList = this.filterProducts(1);  // Filtrar por categoría con idCategory = 1
-      this.shortList = this.filterProducts(2);  // Filtrar por categoría con idCategory = 2
+      this.pantsList = this.filterProducts(2);  // Filtrar por categoría con idCategory = 4
+      this.hoodieList = this.filterProducts(3);  // Filtrar por categoría con idCategory = 3
+      this.sneakerList = this.filterProducts(4);  // Filtrar por categoría con idCategory = 6
+      this.shortList = this.filterProducts(5);  // Filtrar por categoría con idCategory = 2
+      this.dressList = this.filterProducts(6);  // Filtrar por categoría con idCategory = 5
     });
   }
-  
+
   filterProducts(id: number): Product[] {
     const filteredProducts = this.productList.filter((product: Product) => {
       return product.category.idCategory === id;  // Filtrar por idCategory
@@ -119,7 +135,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     console.log('Productos filtrados:', filteredProducts);
     return filteredProducts.slice(0, 10);  // Limitar a los primeros 10 productos filtrados
   }
-  
+
 
 
 
