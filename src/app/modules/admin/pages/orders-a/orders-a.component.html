@@ -1,0 +1,44 @@
+<div class="flex h-full flex-row">
+    <app-sidebar></app-sidebar>
+    <div class="flex h-full w-full flex-col">
+        <app-navbar></app-navbar>
+        <div class="bg-gray-100 h-full w-full py-4 px-10 overflow-y-auto">
+            <div class="w-full min-h-full p-10">
+                <span class="text-3xl">
+                    Ventas de Punto de venta
+                </span>
+                <div *ngFor="let order of orders" class="border border-black rounded-xl w-1/2 px-4 mt-6">
+                    <div class="flex items-center justify-between pr-4">
+                        <span class="text-xl">
+                            Número de orden: #{{order.id}}
+                        </span>
+                        <span *ngIf="order.status === 'COMMITED'"
+                            class="bg-green-300 rounded-lg px-2 text-green-700">PAGADO</span>
+                        <span *ngIf="order.status === 'CANCELED'"
+                            class="bg-red-300 rounded-lg px-2 text-red-700">CANCELADO</span>
+
+                    </div>
+                    <div class="ml-10 flex items-center justify-between py-4">
+                        <div class="flex flex-col">
+                            <div *ngFor="let product of order.stockControlBeans">
+                                <!-- <img [src]="'data:image/png;base64,' + product.product.images[0]" class="h-10" alt=""> -->
+                                <span>
+                                    {{product.product.name}}
+                                </span>
+                                <span class="font-medium">
+                                    ${{product.product.price}}
+                                </span>
+                            </div>
+                        </div>
+                        <div>
+                            <span>
+                                Total: ${{order.total}}
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

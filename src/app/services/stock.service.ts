@@ -44,4 +44,16 @@ export class StockService {
       headers: this.getHeaders(),
     })
   }
+
+  updateStock(stock: any) {
+    return this.http.put(`${this.URL}/stockControl/updateStock`, stock, {
+      headers: this.getHeaders(),
+    })
+  }
+
+  deleteStock(id: number) {
+    return this.http.delete(`${this.URL}/stockControl/deleteStockControl/${id}`, {
+      headers: this.getHeaders(),
+    })
+  }
 }

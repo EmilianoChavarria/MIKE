@@ -17,10 +17,22 @@ export class OrderService {
   }
   constructor(private http: HttpClient) { }
 
+  getById(id: number) {
+    return this.http.get(`${this.URL}/orders/findByUser/${id}`, {
+      headers: this.getHeaders(),
+    });
+  }
+
   // Endpoints de Orders
   saveOrder(order: any) {
     return this.http.post(`${this.URL}/orders/save`, order, {
       headers: this.getHeaders(),
     })
+  }
+
+  cancelOrder(orderId: number) {
+    return this.http.put(`${this.URL}/orders/cancelOrder/${orderId}`, null, {
+      headers: this.getHeaders(),
+    });
   }
 }

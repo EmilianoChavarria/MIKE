@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Product } from '../../interface/Product.interface';
 import { CartService } from '../../services/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -16,13 +17,15 @@ export class NavbarComponent implements OnInit {
   public name: string = '';
   @ViewChild('productos', { static: false }) productos: ElementRef | undefined;
 
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     if (localStorage.getItem("token")) {
       // Asigna nombre del usuario
-      this.name = localStorage.getItem("userData") || '';
-      this.name = this.name.split(',')[1] + ' ' + this.name.split(',')[2];
+      // this.name = localStorage.getItem("userData") || '';
+      this.name = localStorage.getItem("name") + ' ' + localStorage.getItem("lastname");
 
       this.isLoggedIn = true;
       this.items = [
@@ -35,7 +38,7 @@ export class NavbarComponent implements OnInit {
             {
               label: 'Mis pedidos',
               icon: 'pi pi-shopping-bag',
-              link: 'orders',
+              command: () => this.router.navigate(['/myOrders']),
             },
             {
               label: 'Cerrar Sesión',
@@ -83,10 +86,10 @@ export class NavbarComponent implements OnInit {
   public isMenuOpen = false;
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userData');
+    localStorage.clear();
     this.isLoggedIn = false;
     // llamar al ngOnInit para que se actualice el navbar
+    this.router.navigate(['/home']);
     window.location.reload();
 
   }

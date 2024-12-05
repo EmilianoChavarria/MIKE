@@ -40,6 +40,18 @@ export class ProductService {
     })
   }
 
+  updateProduct(product: any) {
+    return this.http.put(`${this.URL}/product/update`, product, {
+      headers: this.getHeaders(),
+    })
+  }
+
+  deleteProduct(id: number) {
+    return this.http.delete(`${this.URL}/product/deleteById/${id}`, {
+      headers: this.getHeaders(),
+    })
+  }
+
   getProducts(idProduct: number, idColor: number, idSize: number): Observable<any[]> {
     return this.http.get<any[]>(this.URL).pipe(
       map(products => 

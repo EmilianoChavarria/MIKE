@@ -49,3 +49,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border: 1px solid black;
     width: 100% !important;
 }
+
+.tr{
+    border-top: 1px solid rgb(145, 145, 145);
+    border-bottom: 1px solid rgb(145, 145, 145);
+    width: 100% !important;
+}
+.p-tabview-nav{
+    border-bottom: 1px solid rgb(68, 147, 221);
+
+}
+.p-tabview-nav li a{
+    border-radius: 0% !important;
+    border-bottom: 2px solid rgb(68, 147, 221);
+    border-right: 1px solid rgb(68, 147, 221);
+}

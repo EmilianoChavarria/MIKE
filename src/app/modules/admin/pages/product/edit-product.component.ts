@@ -14,7 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './product.component.css',
   providers: [MessageService]
 })
-export class ProductComponent {
+export class EditProductComponent {
   public categories: any;
   public colors: any;
   public sizes: any;
@@ -53,7 +53,7 @@ export class ProductComponent {
     private route: ActivatedRoute
 
   ) {
-    
+
   }
 
   uploadedFiles: any[] = [];
@@ -71,19 +71,31 @@ export class ProductComponent {
   card: any;
 
   ngOnInit(): void {
-    
-    console.log(this.product);
-
     this.productService.getCategories().subscribe((response: any) => {
-      this.categories = response.object
-    })
+      this.categories = response.object;
+    });
     this.productService.getColors().subscribe((response: any) => {
-      this.colors = response.object
-    })
+      this.colors = response.object;
+    });
     this.productService.getSizes().subscribe((response: any) => {
-      this.sizes = response.object
-    })
+      this.sizes = response.object;
+    });
+
+    // Llena el formulario si el producto existe
+    if (this.product) {
+      this.productForm.patchValue({
+        name: this.product.name,
+        description: this.product.description,
+        price: this.product.price,
+        gender: this.product.gender,
+        category: this.product.category,
+        color: this.product.color,
+        size: this.product.size,
+        stock: this.product.stock,
+      });
+    }
   }
+
 
   visible: boolean = false;
   visible1: boolean = false;

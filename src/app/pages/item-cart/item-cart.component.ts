@@ -85,14 +85,19 @@ export class ItemCartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const userId = this.data?.split(",")[4].replace(']', '');
+    //TODO: Cambiar por el id del usuario
+    const userIdTemp = parseInt(localStorage.getItem("id") || '');
 
-    this.cartService.getById(this.data?.split(",")[4]).subscribe((response: any) => {
+    this.cartService.getById(userIdTemp).subscribe((response: any) => {
       console.log(response);
       this.address = response.object;
     }, (error) => {
+      console.log("error");
       console.log(error);
-    }
-    )
+    })
+
+
     this.total();
     this.stockService.getStock().subscribe((response: any) => {
       this.checkList = response.object;
@@ -298,6 +303,8 @@ export class ItemCartComponent implements OnInit {
   saveAddress() {
     let data = localStorage.getItem("userData");
     let idUser = data?.split(",")[4];
+    //TODO: Cambiar por el id del usuario
+    let idUserTemp = parseInt(localStorage.getItem("id") || '');
     console.log(this.addressForm.value);
     // if (this.addressForm.invalid) {
     //   return Object.values(this.form.controls).forEach(control => {
@@ -314,7 +321,7 @@ export class ItemCartComponent implements OnInit {
       neighborhood: this.addressForm.value.colonie.city,
       phoneNumber: this.addressForm.value.number,
       userBean: {
-        "id": idUser
+        "id": idUserTemp
       }
     }
     console.log("🚀 ~ ItemCartComponent ~ saveAddress ~ formatedObject:", formatedObject)
@@ -363,7 +370,7 @@ export class ItemCartComponent implements OnInit {
     let formatedData = {
       userBean: {
         // Parse to number
-        id: parseInt(this.data?.split(",")[4])
+        id: parseInt(localStorage.getItem("id") || '')
       },
       addressBean: {
         id: this.form.value.address
@@ -384,6 +391,7 @@ export class ItemCartComponent implements OnInit {
           text: 'Tu pedido ha sido realizado con éxito.',
           confirmButtonText: 'Aceptar'
         });
+        this.router.navigate(['/home']);
       },
       (error) => {
         console.log(error);

@@ -3,7 +3,7 @@
         <div class="text-3xl">SIMIKE</div>
         <div class="w-[90%]">
             <ul class="flex flex-col gap-y-6">
-                <li class="flex px-4 py-2 hover:rounded-lg hover:bg-pink-200"
+                <li class="flex px-4 py-2 hover:rounded-lg hover:bg-pink-200 cursor-pointer"
                     [routerLinkActive]="['bg-pink-300', 'rounded-lg']" [routerLink]="'/admin/homeAdmin'">
                     <mat-icon>
                         <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px"
@@ -16,21 +16,8 @@
                         General
                     </span>
                 </li>
-                <li class="flex px-4 py-2 hover:rounded-lg hover:bg-pink-200"
-                    [routerLinkActive]="['bg-pink-300', 'rounded-lg']" [routerLink]="'/admin/estadisticas'">
-                    <mat-icon>
-                        <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px"
-                            fill="#000000">
-                            <path
-                                d="m105-399-65-47 200-320 120 140 160-260 120 180 135-214 65 47-198 314-119-179-152 247-121-141-145 233Zm475 159q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29ZM784-80 676-188q-21 14-45.5 21t-50.5 7q-75 0-127.5-52.5T400-340q0-75 52.5-127.5T580-520q75 0 127.5 52.5T760-340q0 26-7 50.5T732-244l108 108-56 56Z" />
-                        </svg>
-                    </mat-icon>
-                    <span class="text-xl ml-6">
-                        Estadísticas
-                    </span>
-                </li>
-                <li class="flex px-4 py-2 hover:rounded-lg hover:bg-pink-200"
-                    [routerLinkActive]="['bg-pink-300', 'rounded-lg']" [routerLink]="'/admin/productos'">
+                <li class="flex px-4 py-2 hover:rounded-lg hover:bg-pink-200 cursor-pointer"
+                    [routerLinkActive]="['bg-pink-300', 'rounded-lg']" [routerLink]="'/admin/products'">
                     <mat-icon>
                         <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px"
                             fill="#000000">
@@ -40,6 +27,19 @@
                     </mat-icon>
                     <span class="text-xl ml-6">
                         Productos
+                    </span>
+                </li>
+                <li class="flex px-4 py-2 hover:rounded-lg hover:bg-pink-200 cursor-pointer"
+                    [routerLinkActive]="['bg-pink-300', 'rounded-lg']" [routerLink]="'/admin/ordenes'">
+                    <mat-icon>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px"
+                            fill="#000000">
+                            <path
+                                d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z" />
+                        </svg>
+                    </mat-icon>
+                    <span class="text-xl ml-6">
+                        Ordenes
                     </span>
                 </li>
             </ul>
@@ -52,7 +52,7 @@
                         d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" />
                 </svg>
             </mat-icon>
-            <span class="text-xl ml-6">Cerrar Sesión</span>
+            <span class="text-xl ml-6" (click)="logout()">Cerrar Sesión</span>
         </div>
     </div>
 </div>

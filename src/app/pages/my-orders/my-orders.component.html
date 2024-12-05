@@ -1,0 +1,88 @@
+<div class="w-full h-full flex">
+    <div class="w-1/2 min-h-full p-10 flex">
+        <div class="flex flex-col w-full">
+            <span class="text-3xl">
+                Mis órdenes
+            </span>
+            <div *ngFor="let order of orders" class="border border-black rounded-xl w-full px-4 mt-6">
+                <div class="flex items-center justify-between pr-4">
+                    <span class="text-xl">
+                        Número de orden: #{{order.id}}
+                    </span>
+                    <span *ngIf="order.status === 'COMMITED'" class="bg-green-300 rounded-lg px-2 text-green-700">PAGADO</span>
+                    <span *ngIf="order.status === 'CANCELED'" class="bg-red-300 rounded-lg px-2 text-red-700">CANCELADO</span>
+        
+                </div>
+                <div class="ml-10 flex items-center justify-between">
+                    <div *ngFor="let product of order.stockControlBeans">
+                        <span>
+                            {{product.product.name}}
+                        </span>
+                        <span class="font-medium">
+                            ${{product.product.price}}
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            Total: ${{order.total}}
+                        </span>
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" [disabled]="order.status === 'CANCELED'">
+        
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="cancelOrder(order.id)">
+                                <mat-icon>cancel</mat-icon>
+                                <span class="text-red-600">Cancelar orden</span>
+                            </button>
+                        </mat-menu>
+                    </div>
+        
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w-1/2 h-full bg-[#cfcfcf] text-center p-10">
+        <span class="text-3xl">
+            Editar Perfil
+        </span>
+    
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="mt-6 w-[70%] mx-auto">
+            <div class="mb-4">
+                <label for="email" class="block text-left">Email:</label>
+                <input id="email" formControlName="email" type="email" class="p-2 w-full border border-gray-700 rounded-lg" />
+                <div *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched" class="text-red-500">
+                    Por favor, ingrese un email válido.
+                </div>
+            </div>
+    
+            <div class="mb-4">
+                <label for="password" class="block text-left">Contraseña:</label>
+                <input id="password" formControlName="password" type="password" class="p-2 w-full border border-gray-700 rounded-lg" />
+                <div *ngIf="profileForm.get('password')?.invalid && profileForm.get('password')?.touched" class="text-red-500">
+                    La contraseña es obligatoria.
+                </div>
+            </div>
+    
+            <div class="mb-4">
+                <label for="name" class="block text-left">Nombre:</label>
+                <input id="name" formControlName="name" type="text" class="p-2 w-full border border-gray-700 rounded-lg" />
+            </div>
+    
+            <div class="mb-4">
+                <label for="lastname" class="block text-left">Apellido:</label>
+                <input id="lastname" formControlName="lastname" type="text" class="p-2 w-full border border-gray-700 rounded-lg" />
+            </div>
+    
+            <div class="mb-4">
+                <label for="surname" class="block text-left">Segundo Apellido:</label>
+                <input id="surname" formControlName="surname" type="text" class="p-2 w-full border border-gray-700 rounded-lg" />
+            </div>
+    
+            <button type="submit" [disabled]="profileForm.invalid" class="bg-blue-500 text-white p-2 rounded">
+                Guardar
+            </button>
+        </form>
+    </div>
+    
+</div>

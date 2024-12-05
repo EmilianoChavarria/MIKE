@@ -22,6 +22,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
 import { FileUploadModule } from 'primeng/fileupload';
 import { AccordionModule } from 'primeng/accordion';
+import { TableModule } from 'primeng/table';
 
 
 
@@ -31,7 +32,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-
+import {MatMenuModule} from '@angular/material/menu';
 
 
 
@@ -58,13 +59,15 @@ import { MatButtonModule } from '@angular/material/button';
     InputMaskModule,
     FileUploadModule,
     AccordionModule,
+    TableModule,
     
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
     MatSelectModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatMenuModule
 
   ]
 })

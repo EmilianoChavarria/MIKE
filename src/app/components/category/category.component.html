@@ -1,0 +1,36 @@
+<div class="main-container flex">
+    <!-- Sidebar con filtros -->
+    <div class="filters-sidebar w-1/4 bg-gray-100 p-4 rounded-lg shadow-md h-fit">
+        <h3 class="text-lg font-bold text-gray-700 mb-4">Filtros</h3>
+
+        <!-- Filtro por rango de precio -->
+        <div class="filter-item flex flex-col mb-4">
+            <label for="priceRange" class="text-gray-700 font-medium">Precio</label>
+            <input id="priceRange" type="range" [(ngModel)]="filters.price" min="0" max="1000" step="10" class="w-full mt-2">
+            <span class="text-sm text-gray-600">Hasta ${{ filters.price }}</span>
+        </div>
+
+        <!-- Botón de aplicación -->
+        <button (click)="applyFilters()" class="bg-blue-500 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-600 transition w-full">
+            Aplicar filtross
+        </button>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="content-container w-3/4 pl-6">
+        <h2 class="text-3xl font-bold text-gray-700 mb-5">{{ categoryName | titlecase }}</h2>
+        <div class="flex gap-x-4 flex-wrap">
+            <div *ngFor="let card of filteredProducts"  (click)="navigateToProduct(card)"
+                class="flex justify-center items-center flex-col flex-shrink-0 cursor-pointer w-[18rem] bg-[#E8E8E8] border rounded-lg shadow-md hover:scale-105 transition-transform duration-300 pt-2">
+                <img class="w-full max-h-64 rounded-t-lg" [src]="card.image" [alt]="card.name">
+                <div class="p-2 text-start bg-white w-full rounded-lg px-7 min-h-36 flex flex-col items-start justify-center">
+                    <h3 class="text-xl font-medium">{{ card.name }}</h3>
+                    <h3 class="text-base font-light">
+                        {{ card.description.length > 50 ? (card.description | slice:0:55) + '...' : card.description }}
+                    </h3>
+                    <p class="text-gray-600">${{ card.price }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

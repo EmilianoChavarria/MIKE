@@ -1,1 +1,53 @@
-<p>products works!</p>
+<div class="flex h-full flex-row">
+    <app-sidebar></app-sidebar>
+    <div class="flex h-full w-full flex-col">
+        <app-navbar></app-navbar>
+        <div class="bg-gray-100 h-full w-full py-4 px-10 overflow-y-auto">
+            <!-- Buscador -->
+            <div class="mb-4 px-10">
+                <input type="text" class="px-4 py-2 border rounded-lg w-1/3" placeholder="Buscar producto..."
+                    [(ngModel)]="searchTerm" (input)="onSearch()" />
+                <a routerLink="/admin/product" class="ml-10 bg-[#264486] px-4 py-2  rounded-full text-white">Agregar
+                    Producto</a>
+            </div>
+
+            <!-- Aquí es donde las tarjetas se ajustarán al ancho -->
+            <div class="bg-gray-100 h-full w-full py-4 px-10 flex flex-wrap justify-start">
+                <div *ngFor="let card of filteredItems"
+                    class="flex justify-center items-center flex-col flex-shrink-0 cursor-pointer w-[18rem] bg-[#E8E8E8] border rounded-lg shadow-md pt-2 mb-4 mx-2">
+                    <!-- Imagen de la tarjeta -->
+                    <img class="w-full max-h-64 rounded-t-lg" [src]="card.image" [alt]="card.name">
+                    <div class="p-2 text-start bg-white w-full rounded-lg px-7">
+                        <h3 class="text-xl font-medium">{{ card.product.name }}</h3>
+                        <div class="flex">
+                            <p class="text-gray-600">${{ card.product.price }}</p>
+                            <p class="text-gray-600 ml-6 font-semibold">Stock: {{ card.stock }}</p>
+
+                        </div>
+                        <div class="mx-auto">
+                            <button class="bg-yellow-400 p-1  rounded-xl" (click)="navigateToProduct(card)">
+                                <mat-icon class="align-middle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+                                        width="24px" fill="#000000">
+                                        <path
+                                            d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
+                                    </svg>
+                                </mat-icon>
+                            </button>
+                            <button class="bg-red-600 p-1  rounded-xl ml-4"  (click)="delete(1,card.id)">
+                                <mat-icon class="align-middle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+                                        width="24px" fill="#000000">
+                                        <path
+                                            d="m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z" />
+                                    </svg>
+                                </mat-icon>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

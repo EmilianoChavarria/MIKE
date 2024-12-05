@@ -1,74 +1,16 @@
-<div class="w-full">
-    <!-- ---------------sección de arriba cuadro azul ------------------>
-    <section class="w-full h-auto bg-[#264486] flex items-center justify-center lg:h-[60vh]">
-        <div class="py-5 px-20 flex flex-col sm:flex-col md:flex-row md:w-full lg:w-3/4 lg:h-full lg:flex-row">
-
-            <article class="text-white flex flex-col items-center justify-center sm:w-full md:w-2/4">
-                <header class="flex flex-col">
-                    <h2 class="text-3xl font-light">Descubre tu estilo</h2>
-                    <h1 class="text-5xl font-semibold mt-2 leading-tight">Compra las últimas tendencias ahora</h1>
-                    <a href="#" class="bg-white w-fit text-[#264486] px-5 py-2 rounded-full border-2 font-bold mt-10 hover:bg-[#264486] hover:text-white 
-                        hover:border-2 transition duration-300 ease-in-out">
-                        Descubre Modas
-                    </a>
-                </header>
-            </article>
-
-            <figure class="w-2/4 items-center justify-center hidden md:block">
-                <img class="h-full object-contain" src="assets/img/modelo2.png" alt="modelo vistiendo ropa de moda">
-            </figure>
-
+<div class="w-full min-h-[90%]">
+    <div class="relative ">
+        <div class="absolute inset-0 flex items-center justify-center text-white font-bold text-5xl drop-shadow-2xl	">
+            ¡Descubre nuestros nuevos productos para mujeres!
         </div>
-    </section>
-
-    <!-- ------------carrusel de categorías--------- -->
-    <section class="w-full flex items-center justify-center py-10 " #productos id="productos">
-        <article class="w-11/12 flex flex-col 2xl:w-8/12">
-            <span class="text-3xl font-medium pb-10">{{"categorías"|uppercase}}</span>
-            <p-carousel [value]="categories" [numVisible]="5" [numScroll]="5" [circular]="true"
-                [responsiveOptions]="firstResponsiveOptions">
-                <ng-template let-product pTemplate="item" >
-                    <div [routerLink]="[product.name]">
-                        <div class="mx-auto h-52 w-52 bg-gray-200 rounded-full flex items-center justify-center">
-                            <img [src]="product.image" alt="" class="max-h-40 max-w-40">
-                        </div>
-                        <div
-                            class=" mx-auto mt-[-20px] w-fit bg-[#264486] text-white px-10 py-5 text-center rounded-full">
-                            {{product.name}}</div>
-                    </div>
-                </ng-template>
-            </p-carousel>
-            <!-- <div class="w-full flex justify-between" *ngIf="categories.length <= 5">
-                <div *ngFor="let product of categories">
-                    <div class="h-52 w-52 bg-gray-200 rounded-full flex items-center justify-center">
-                        <img [src]="product.image" alt="" class="max-h-40 max-w-40">
-                    </div>
-                    <div class=" mx-auto mt-[-20px] w-fit bg-[#264486] text-white px-10 py-5 text-center rounded-full">
-                        {{product.name}}</div>
-                </div>
-            </div> -->
-
-
-        </article>
-    </section>
-
-
-    <!-- botones de los filtros, los comenté pa pasarlos a otra página -->
-    <!-- <div class="w-full flex justify-between items-center py-4 mt-8 ">
-                <div class="flex">
-                    <button
-                        class="mr-4 text-lg px-4 py-2 border-[#264486] border rounded-full hover:bg-[#264486] hover:text-white transition duration-300 ease-in-out">Todo</button>
-                    <button
-                        class="mr-4 text-lg px-4 py-2 border-[#264486] border rounded-full hover:bg-[#264486] hover:text-white transition duration-300 ease-in-out">Popular</button>
-                    <button
-                        class="mr-4 text-lg px-4 py-2 border-[#264486] border rounded-full hover:bg-[#264486] hover:text-white transition duration-300 ease-in-out">Nuevo</button>
-                </div>
-                <button
-                    class="mr-4 text-lg px-4 py-2 border-[#264486] border rounded-full hover:bg-[#264486] hover:text-white transition duration-300 ease-in-out">Filtrar
-                    <mat-icon class="align-middle">sort</mat-icon>
-                </button>
-            </div> -->
-
+        <img src="https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/h_1629,c_limit/4f777133-24e7-4d6d-9a33-f22fc84e3f7a/calzado-vestimenta-y-accesorios-para-mujer.png"
+            alt="">
+    </div>
+    <div class="pt-10 px-10 bg-gray-100">
+        <span class="text-3xl font-medium">
+            Explora nuestra colección de productos para mujeres
+        </span>
+    </div>
     <!-- sección de productos (playeras)-->
     <section class="w-full flex flex-col items-center justify-center bg-gray-100 text-center pt-20 pb-10 px-10 ">
         <span class="text-4xl font-medium mb-5">{{"nuestras mejores colecciones"|uppercase}}</span>
@@ -161,7 +103,6 @@
             </app-carrusel>
         </div>
     </section>
-
 
 
 </div>

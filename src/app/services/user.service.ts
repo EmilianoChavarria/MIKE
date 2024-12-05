@@ -12,7 +12,7 @@ export class UserService {
     return new HttpHeaders({
       'Content-Type': 'application/json',
       // 'Authorization': `Bearer ${token}`
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzMxNjE2MzQsImV4cCI6MTczMzc2NjQzNH0.dg1y0Eqw1TOdetNPrUwH58DVZ9zqktnLRsk6YxRQugk`
     });
   }
   constructor(private http: HttpClient) { }
@@ -22,6 +22,11 @@ export class UserService {
   }
   register(userInfo: any) {
     return this.http.post(`${this.URL}/auth/register`, userInfo);
+  }
+  update(userInfo: any) {
+    return this.http.put(`${this.URL}/user/update`, userInfo, {
+      headers: this.getHeaders(),
+    });
   }
 
   findOne(id: number) {
