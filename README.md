@@ -24,7 +24,7 @@ Clona este repositorio en tu máquina local:
 git clone https://github.com/EmilianoChavarria/MIKE.git
 cd nombre-del-repositorio
 
-### Despues ingresa el comando
+### 2. Despues ingresa el comando
 ```bash
 npm install
 
