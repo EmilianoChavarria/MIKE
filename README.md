@@ -1,27 +1,33 @@
-# MIKE
+# SIMIKE
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.6.
+Este proyecto es un sistema de e-commerce para una tienda de ropa desarrollado con Angular. Permite a los usuarios explorar productos, agregar al carrito y gestionar compras.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Requisitos Previos
 
-## Code scaffolding
+Antes de comenzar, asegúrate de tener instalado lo siguiente:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Node.js** (versión 14 o superior)  
+  [Descargar Node.js](https://nodejs.org/)
 
-## Build
+- **Angular CLI**  
+  Instálalo globalmente ejecutando:  
+  ```bash
+  npm install -g @angular/cli
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Pasos para Clonar y Ejecutar el Proyecto
 
-## Running unit tests
+### 1. Clonar el Repositorio  
+Clona este repositorio en tu máquina local:  
+```bash
+git clone https://github.com/EmilianoChavarria/MIKE.git
+cd nombre-del-repositorio
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Despues ingresa el comando
 
-## Running end-to-end tests
+npm install
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Una vez descargado ingresa el comando
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+ng serve
