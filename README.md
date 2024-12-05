@@ -24,10 +24,10 @@ Clona este repositorio en tu máquina local:
 git clone https://github.com/EmilianoChavarria/MIKE.git
 cd nombre-del-repositorio
 
-Despues ingresa el comando
-
+### Despues ingresa el comando
+```bash
 npm install
 
-Una vez descargado ingresa el comando
-
+### Una vez descargado ingresa el comando
+```bash
 ng serve
