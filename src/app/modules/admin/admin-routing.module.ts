@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'product', component: ProductComponent },
   { path: 'ordenes', component: OrdersAComponent },
   { path: 'editProduct', component: EditProductComponent },
-  { path: ':categoryName', component: CategoryComponent },
+  { path: 'products/:categoryName', component: CategoryComponent },
   { path: '', redirectTo: 'general', pathMatch: 'full' },
 ];
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -11,11 +11,11 @@ import Swal from 'sweetalert2';
 })
 export class RegisterComponent {
   public registerForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required]],
-    password: ['', [Validators.required]],
-    name: ['', [Validators.required]],
-    lastname: ['', [Validators.required]],
-    surname: ['', [Validators.required]],
+    email: ['', [Validators.required, this.noWhitespaceValidator]],
+    password: ['', [Validators.required, this.noWhitespaceValidator]],
+    name: ['', [Validators.required, this.noWhitespaceValidator]],
+    lastname: ['', [Validators.required, this.noWhitespaceValidator]],
+    surname: [''],
   });
   public isVisible: boolean = false;
 
@@ -63,4 +63,8 @@ export class RegisterComponent {
       }
     );
   }
+
+  public noWhitespaceValidator(control: FormControl) {
+    return (control.value || '').trim().length? null : { 'whitespace': true };       
+}
 }

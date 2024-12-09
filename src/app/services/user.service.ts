@@ -12,7 +12,7 @@ export class UserService {
     return new HttpHeaders({
       'Content-Type': 'application/json',
       // 'Authorization': `Bearer ${token}`
-      'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzMxNjE2MzQsImV4cCI6MTczMzc2NjQzNH0.dg1y0Eqw1TOdetNPrUwH58DVZ9zqktnLRsk6YxRQugk`
+      'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFuQGdtYWlsLmNvbSIsImlhdCI6MTczMzcyMDM5NiwiZXhwIjoxNzM0MzI1MTk2fQ.MXqrBdCfqUF6NaaB-NkiUZqGMrUNBRDPmrq_9MWc1iI`
     });
   }
   constructor(private http: HttpClient) { }

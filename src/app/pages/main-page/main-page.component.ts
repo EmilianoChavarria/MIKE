@@ -124,6 +124,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
       this.sneakerList = this.filterProducts(4);  // Filtrar por categoría con idCategory = 6
       this.shortList = this.filterProducts(5);  // Filtrar por categoría con idCategory = 2
       this.dressList = this.filterProducts(6);  // Filtrar por categoría con idCategory = 5
+    }, (error: any) => {
+      console.error('Error al obtener los productos:', error);
     });
   }
 

@@ -78,8 +78,8 @@ export class MyOrdersComponent implements OnInit {
   onSubmit(): void {
     if (this.profileForm.valid) {
       console.log(this.profileForm.value);
-      // Aquí puedes agregar lógica para enviar los datos del formulario a un backend
-      let formatedData = {
+  
+      const formatedData = {
         email: this.profileForm.value.email,
         password: this.profileForm.value.password,
         person: {
@@ -91,29 +91,36 @@ export class MyOrdersComponent implements OnInit {
           id: 3
         },
         id: parseInt(localStorage.getItem('id') || '')
-
       };
-
-      this.userService.update(formatedData).subscribe((response: any) => {
-        console.log(response);
-        Swal.fire(
-          'Actualizado',
-          'Tu perfil ha sido actualizado exitosamente.',
-          'success'
-        );
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
-      }, (error: any) => {
-        console.error('Error al actualizar el perfil:', error);
-        Swal.fire(
-          'Error',
-          'Hubo un problema al actualizar tu perfil.',
-          'error'
-        );
-      });
+  
+      this.userService.update(formatedData).subscribe(
+        (response: any) => {
+          console.log(response);
+  
+          // Mostrar alerta
+          Swal.fire({
+            title: 'Actualización Exitosa',
+            text: 'Tu perfil ha sido actualizado. Por favor, inicia sesión con tus nuevas credenciales.',
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+          }).then(() => {
+            // Limpiar el localStorage y redirigir a /login
+            localStorage.clear();
+            window.location.href = '/login'; // Redirigir al login
+          });
+        },
+        (error: any) => {
+          console.error('Error al actualizar el perfil:', error);
+          Swal.fire(
+            'Error',
+            'Hubo un problema al actualizar tu perfil.',
+            'error'
+          );
+        }
+      );
     } else {
       console.log('Formulario no válido');
     }
   }
+  
 }

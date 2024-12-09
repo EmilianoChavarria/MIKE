@@ -1,69 +1,96 @@
 <div class="h-screen w-full flex justify-center items-center">
-    <!-- Contenedor principal que centra vertical y horizontalmente el formulario -->
     <div class="bg-[#F9F9F9] w-1/3 flex flex-col justify-center items-center rounded-2xl py-10 gap-y-4 shadow-2xl">
-        <!-- Título principal de la página -->
         <span class="text-4xl font-medium">SIMIKE</span>
-        <!-- Subtítulo indicando la funcionalidad de la página -->
         <span class="text-3xl font-medium">Accede a tu cuenta</span>
 
-        <!-- Formulario para el registro con Angular Reactive Forms -->
-        <form action="" [formGroup]="registerForm" class="w-[70%] flex flex-col text-center gap-y-10">
-            <!-- Contenedor para los campos del formulario -->
+        <form [formGroup]="registerForm" class="w-[70%] flex flex-col text-center gap-y-10">
             <div class="flex flex-col gap-y-4">
-                <!-- Campo de correo electrónico -->
+                <!-- Campo de correo -->
                 <label for="email" class="flex flex-col">
-                    <input type="text" formControlName="email"
+                    <input
+                        type="text"
+                        formControlName="email"
                         class="border border-[#585858] h-12 px-6 focus:outline-none focus:ring focus:border-blue-700 text-lg"
-                        placeholder="Correo">
+                        placeholder="Correo"
+                        [class.border-red-500]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+                    />
+                    <small class="text-red-500" *ngIf="registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched">
+                        El correo es obligatorio.
+                    </small>
+                    <small class="text-red-500" *ngIf="registerForm.get('email')?.hasError('whitespace') && registerForm.get('email')?.touched">
+                        El correo no puede contener solo espacios en blanco.
+                    </small>
                 </label>
 
-                <!-- Campo de contraseña con botón para alternar visibilidad -->
-                <label for="password" class="flex flex-col mt-2 relative">
-                    <input [type]="isVisible ? 'text' : 'password'" formControlName="password"
+                <!-- Campo de contraseña -->
+                <label for="password" class="flex flex-col relative">
+                    <input
+                        [type]="isVisible ? 'text' : 'password'"
+                        formControlName="password"
                         class="border border-[#585858] h-12 px-6 focus:outline-none focus:ring focus:border-blue-700 text-lg"
-                        placeholder="Contraseña">
-                    <!-- Botón para alternar la visibilidad de la contraseña -->
-                    <button (click)="isVisible = !isVisible" type="button">
-                        <!-- Ícono para mostrar/ocultar contraseña -->
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="absolute top-[20%] right-0 h-8 px-4 flex items-center justify-center" viewBox="0 -960 960 960"
-                            fill="#5f6368">
+                        placeholder="Contraseña"
+                        [class.border-red-500]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+                    />
+                    <small class="text-red-500" *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched">
+                        La contraseña es obligatoria.
+                    </small>
+                    <button (click)="isVisible = !isVisible" type="button" class="absolute top-[20%] right-0">
+                        <!-- Ícono de visibilidad -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 px-4 flex items-center justify-center" viewBox="0 -960 960 960" fill="#5f6368">
                             <path
-                                d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z" />
+                                d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"
+                            />
                         </svg>
                     </button>
                 </label>
 
-                <!-- Campo para el nombre -->
-                <label for="name" class="flex flex-col mt-2">
-                    <input type="text" formControlName="name"
+                <!-- Campos restantes con validaciones -->
+                <label for="name" class="flex flex-col">
+                    <input
+                        type="text"
+                        formControlName="name"
                         class="border border-[#585858] h-12 px-6 focus:outline-none focus:ring focus:border-blue-700 text-lg"
-                        placeholder="Nombre">
+                        placeholder="Nombre"
+                        [class.border-red-500]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched"
+                    />
+                    <small class="text-red-500" *ngIf="registerForm.get('name')?.hasError('required') && registerForm.get('name')?.touched">
+                        El nombre es obligatorio.
+                    </small>
                 </label>
-
-                <!-- Campo para el apellido paterno -->
-                <label for="lastname" class="flex flex-col mt-2">
-                    <input type="text" formControlName="lastname"
+                <label for="name" class="flex flex-col">
+                    <input
+                        type="text"
+                        formControlName="lastname"
                         class="border border-[#585858] h-12 px-6 focus:outline-none focus:ring focus:border-blue-700 text-lg"
-                        placeholder="Apellido Paterno">
+                        placeholder="Apellido Paterno"
+                        [class.border-red-500]="registerForm.get('lastname')?.invalid && registerForm.get('lastname')?.touched"
+                    />
+                    <small class="text-red-500" *ngIf="registerForm.get('lastname')?.hasError('required') && registerForm.get('lastname')?.touched">
+                        El apellido es obligatorio.
+                    </small>
                 </label>
-
-                <!-- Campo para el apellido materno -->
-                <label for="surname" class="flex flex-col mt-2">
-                    <input type="text" formControlName="surname"
+                <label for="name" class="flex flex-col">
+                    <input
+                        type="text"
+                        formControlName="surname"
                         class="border border-[#585858] h-12 px-6 focus:outline-none focus:ring focus:border-blue-700 text-lg"
-                        placeholder="Apellido Materno">
+                        placeholder="Apellido Materno"
+                    />
                 </label>
             </div>
 
-            <!-- Contenedor para el botón de acción y enlace -->
             <div class="flex flex-col">
-                <!-- Botón para iniciar sesión -->
-                <button class="px-16 py-4 bg-[#1679AB] rounded-full w-fit mx-auto text-white text-xl" (click)="register()">
-                    Iniciar Sesión
+                <!-- Deshabilitar el botón si el formulario es inválido -->
+                <button
+                    class="px-16 py-4 bg-[#1679AB] rounded-full w-fit mx-auto text-white text-xl"
+                    [disabled]="registerForm.invalid"
+                    [class.opacity-50]="registerForm.invalid"
+                    (click)="register()"
+                >
+                    Registrarte
                 </button>
-                <!-- Enlace de ayuda o redirección -->
-                <span class="text-[#264486] font-medium mt-2 text-lg">
+                <!-- Enlace para crear una cuenta nueva -->
+                <span class="text-[#264486] font-medium mt-2 text-lg" routerLink="/register">
                     ¿No tienes una cuenta? Créala ahora!
                 </span>
             </div>

@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { OrderService } from '../../services/order.service';
 import { Router } from '@angular/router';
+import { StatsService } from '../../services/stats.service';
 
 @Component({
   selector: 'app-home-seller',
@@ -27,12 +28,15 @@ export class HomeSellerComponent {
     private stockService: StockService,
     private fb: FormBuilder,
     private orderService: OrderService,
-    private router: Router 
+    private router: Router,
+    private statsService: StatsService 
   ) { }
 
   ngOnInit(): void {
     this.getCategories();
   }
+
+  
 
   getCategories() {
     this.poductService.getCategories().subscribe((response: any) => {
@@ -174,10 +178,15 @@ export class HomeSellerComponent {
 
     this.shopList.push(formatedProduct);
     this.formatedData.stockControlBeans.push(stockControlBean);
-
     console.log(this.shopList);
     console.log(this.formatedData);
-
+    this.visible = false;
+    Swal.fire({
+      icon: 'success',
+      title: '¡Éxito!',
+      text: 'El producto se ha agregado al carrito.',
+      confirmButtonText: 'Aceptar'
+    });
   }
 
   getTotal(): number {
@@ -186,9 +195,6 @@ export class HomeSellerComponent {
 
   logout() {
     localStorage.clear();
-
-    
-
     this.router.navigate(['/home']);
   }
 

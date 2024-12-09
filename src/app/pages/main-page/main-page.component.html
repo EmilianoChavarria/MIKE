@@ -28,7 +28,7 @@
             <p-carousel [value]="categories" [numVisible]="5" [numScroll]="5" [circular]="true"
                 [responsiveOptions]="firstResponsiveOptions">
                 <ng-template let-product pTemplate="item" >
-                    <div [routerLink]="[product.name]">
+                    <div [routerLink]="['/products', product.name]" class="cursor-pointer">
                         <div class="mx-auto h-52 w-52 bg-gray-200 rounded-full flex items-center justify-center">
                             <img [src]="product.image" alt="" class="max-h-40 max-w-40">
                         </div>
@@ -73,7 +73,7 @@
     <section class="w-full flex flex-col items-center justify-center bg-gray-100 text-center pt-20 pb-10 px-10 ">
         <span class="text-4xl font-medium mb-5">{{"nuestras mejores colecciones"|uppercase}}</span>
         <div class="w-full flex justify-end mb-6 2xl:w-9/12">
-            <button
+            <button [routerLink]="['/products/blusas']"
                 class="text-black border border-[#264486] px-6 py-2 rounded-full hover:bg-[#264486] hover:text-white transition">
                 Ver todo
             </button>
@@ -87,9 +87,9 @@
 
     <!-- sección de productos (Pantalones)-->
     <section class="w-full flex flex-col items-center justify-center bg-gray-100 text-center pt-10 pb-10 px-10 ">
-        <span class="text-4xl font-medium mb-5">{{"Ultimo en moda en pantalones"|uppercase}}</span>
+        <span class="text-4xl font-medium mb-5">{{"Último en moda en pantalones"|uppercase}}</span>
         <div class="w-full flex justify-end mb-6 2xl:w-9/12">
-            <button
+            <button [routerLink]="['/products/pantalones']"
                 class="text-black border border-[#264486] px-6 py-2 rounded-full hover:bg-[#264486] hover:text-white transition">
                 Ver todo
             </button>
@@ -105,7 +105,7 @@
     <section class="w-full flex flex-col items-center justify-center bg-gray-100 text-center pt-10 pb-10 px-10 ">
         <span class="text-4xl font-medium mb-5">{{"Para esta época de frío las mejores sudaderas"|uppercase}}</span>
         <div class="w-full flex justify-end mb-6 2xl:w-9/12">
-            <button
+            <button [routerLink]="['/products/sudaderas']"
                 class="text-black border border-[#264486] px-6 py-2 rounded-full hover:bg-[#264486] hover:text-white transition">
                 Ver todo
             </button>
@@ -120,7 +120,7 @@
     <section class="w-full flex flex-col items-center justify-center bg-gray-100 text-center pt-10 pb-10 px-10 ">
         <span class="text-4xl font-medium mb-5">{{"Lo mejor en Tenis"|uppercase}}</span>
         <div class="w-full flex justify-end mb-6 2xl:w-9/12">
-            <button
+            <button [routerLink]="['/products/tenis']"
                 class="text-black border border-[#264486] px-6 py-2 rounded-full hover:bg-[#264486] hover:text-white transition">
                 Ver todo
             </button>
@@ -136,7 +136,7 @@
     <section class="w-full flex flex-col items-center justify-center bg-gray-100 text-center pt-10 pb-10 px-10 ">
         <span class="text-4xl font-medium mb-5">{{"Shorts para el verano"|uppercase}}</span>
         <div class="w-full flex justify-end mb-6 2xl:w-9/12">
-            <button
+            <button [routerLink]="['/products/shorts']"
                 class="text-black border border-[#264486] px-6 py-2 rounded-full hover:bg-[#264486] hover:text-white transition">
                 Ver todo
             </button>
@@ -151,7 +151,7 @@
     <section class="w-full flex flex-col items-center justify-center bg-gray-100 text-center pt-10 pb-10 px-10 ">
         <span class="text-4xl font-medium mb-5">{{"Vestidos para cualquier ocasión"|uppercase}}</span>
         <div class="w-full flex justify-end mb-6 2xl:w-9/12">
-            <button
+            <button [routerLink]="['/products/vestidos']"
                 class="text-black border border-[#264486] px-6 py-2 rounded-full hover:bg-[#264486] hover:text-white transition">
                 Ver todo
             </button>

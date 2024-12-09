@@ -21,7 +21,7 @@ export class StockService {
     return new HttpHeaders({
       'Content-Type': 'application/json',
       // 'Authorization': `Bearer ${token}`
-      'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzI5NDU0NDQsImV4cCI6MTczMzU1MDI0NH0.xOeETW0oarhFoJEJIwD1G1zuGVd34SUZidU-Q2sd6N4`
+      'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFuQGdtYWlsLmNvbSIsImlhdCI6MTczMzcyMDM5NiwiZXhwIjoxNzM0MzI1MTk2fQ.MXqrBdCfqUF6NaaB-NkiUZqGMrUNBRDPmrq_9MWc1iI`
     });
   }
 
