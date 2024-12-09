@@ -1,44 +1,63 @@
 <div class="flex flex-col w-full min-h-full">
+    <!-- Barra de navegación superior -->
     <nav class="w-full h-20 bg-[#14203D] flex justify-between px-10 items-center ">
+        <!-- Título del sistema -->
         <span class="text-white text-2xl">SIMIKE</span>
-        <div class="cursor-pointer " (click)="logout()">
+
+        <!-- Botón para cerrar sesión -->
+        <div class="cursor-pointer" (click)="logout()">
+            <!-- Ícono de cerrar sesión -->
             <mat-icon class="align-middle">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                    fill="#FFFFFF">
                     <path
                         d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" />
                 </svg>
             </mat-icon>
+            <!-- Texto de cerrar sesión -->
             <span class="text-white">Cerrar sesión</span>
         </div>
     </nav>
+
+    <!-- Contenedor principal -->
     <div class="w-full min-h-full">
+        <!-- TabView para cambiar entre pestañas -->
         <p-tabView>
+            <!-- Pestaña de "Buscar Producto" -->
             <p-tabPanel id="tab-panel" header="Buscar Producto">
                 <div class="flex flex-col px-10">
+                    <!-- Título de la sección -->
                     <span class="text-2xl">Seleccione una categoría</span>
 
+                    <!-- Lista de categorías -->
                     <div class="flex items-center justify-around mt-4">
+                        <!-- Iterar sobre las categorías disponibles -->
                         <div *ngFor="let item of categories" class="bg-gray-500 text-center shadow-2xl cursor-pointer"
                             [ngClass]="{'bg-blue-600': selectedCategory === item.name}"
                             (click)="getProducts(item.name)">
-
+                            <!-- Imagen de la categoría -->
                             <img [src]="item.image" alt="" class="h-40">
+                            <!-- Nombre de la categoría -->
                             <span class="text-xl text-white">
                                 {{item.name | uppercase}}
                             </span>
                         </div>
                     </div>
 
-                    <!-- Campo de búsqueda -->
+                    <!-- Campo de búsqueda para filtrar productos -->
                     <input type="text" [(ngModel)]="searchQuery" (input)="filterProductsByName()"
                         placeholder="Buscar productos por nombre"
                         class="mt-4 p-2 border border-black rounded-lg w-full" />
 
+                    <!-- Lista de productos filtrados -->
                     <div class="flex gap-x-4 flex-wrap mt-10">
+                        <!-- Iterar sobre los productos filtrados -->
                         <div *ngFor="let card of filteredProducts"
                             class="flex justify-center items-center flex-col flex-shrink-0 cursor-pointer w-[18rem] bg-[#E8E8E8] border rounded-lg shadow-md pt-2"
                             [ngClass]="{'border-2 border-blue-600': card.selected}">
+                            <!-- Imagen del producto -->
                             <img class="w-full max-h-64 rounded-t-lg" [src]="card.image" [alt]="card.name">
+                            <!-- Detalles del producto -->
                             <div
                                 class="p-2 text-start bg-white w-full rounded-lg px-7 min-h-36 flex flex-col items-start justify-center">
                                 <h3 class="text-xl font-medium">{{ card.name }}</h3>
@@ -47,17 +66,20 @@
                                     card.description }}
                                 </h3>
                                 <p class="text-gray-600">${{ card.price }}</p>
+                                <!-- Botón para agregar el producto a la compra -->
                                 <button class="bg-blue-500 text-white rounded-md px-2 py-2" (click)="show(card)">Agregar
                                     a la compra</button>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </p-tabPanel>
+
+            <!-- Pestaña de "Compra" -->
             <p-tabPanel id="tab-panel" header="Compra">
                 <!-- Tabla de productos en la compra -->
                 <p-table [value]="shopList" [tableStyle]="{ 'min-width': '50rem' }">
+                    <!-- Encabezado de la tabla -->
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Producto</th>
@@ -66,6 +88,7 @@
                             <th>Total</th>
                         </tr>
                     </ng-template>
+                    <!-- Cuerpo de la tabla -->
                     <ng-template pTemplate="body" let-product>
                         <tr class="tr">
                             <td>{{ product.name }}</td>
@@ -74,7 +97,7 @@
                             <td>${{ product.price * product.quantity }}</td>
                         </tr>
                     </ng-template>
-                    <!-- Fila para el total -->
+                    <!-- Pie de la tabla con el total -->
                     <ng-template pTemplate="footer">
                         <tr>
                             <td colspan="3" style="text-align: right; font-weight: bold;">Total:</td>
@@ -82,6 +105,7 @@
                                 ${{ getTotal() }}
                             </td>
                         </tr>
+                        <!-- Botón para realizar el pago -->
                         <tr>
                             <td colspan="3" style="text-align: right; font-weight: bold;"></td>
                             <td style="font-weight: bold;">
@@ -92,30 +116,26 @@
                     </ng-template>
                 </p-table>
             </p-tabPanel>
-
-
         </p-tabView>
     </div>
 </div>
 
-<!-- Diálogo para agregar color -->
 <!-- Diálogo para agregar la cantidad a comprar -->
 <p-dialog header="Agregar la cantidad a comprar" [modal]="true" [(visible)]="visible" [style]="{ width: '35rem' }"
     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
-
     <form [formGroup]="form" class="flex flex-col gap-y-4">
         <div class="flex gap-4 flex-col">
-            <!-- Mostrar el nombre del producto aquí -->
+            <!-- Mostrar el nombre del producto y stock disponible -->
             <h2 class="text-2xl font-medium mb-2">Nombre del producto: {{ product?.name }}</h2>
             <h2 class="text-2xl font-medium mb-2">Stock disponible: {{ product?.stock }} pz.</h2>
-
+            <!-- Campo para ingresar la cantidad -->
             <label class="flex flex-col w-3/4">
                 <span class="font-bold">Cantidad</span>
                 <input type="text" formControlName="quantity"
                     class="border border-[#414141] h-8 rounded-md px-2 focus:outline-none focus:ring focus:border-blue-700" />
             </label>
-
         </div>
+        <!-- Botón para guardar la cantidad seleccionada -->
         <button type="button" class="bg-blue-500 rounded-xl text-white px-6 py-1 w-fit" (click)="saveQuantity()">
             Agregar
         </button>
